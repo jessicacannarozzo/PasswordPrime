@@ -20,7 +20,7 @@ app.get('/quotes', (req,res) => {
             
             // createQuotePW(body);
             obj = {
-                pw: createQuotePW(body),
+                pw: createQuotePW(JSON.parse(body).quoteText),
                 quote: JSON.parse(body).quoteText,
                 author: JSON.parse(body).quoteAuthor,
                 link: JSON.parse(body).quoteLink

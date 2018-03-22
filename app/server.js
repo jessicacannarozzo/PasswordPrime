@@ -9,6 +9,7 @@ app.get('/', (req,res) => {
     res.sendStatus(200);
 });
 
+// output: passwordObj with generated quote password, quote, author, quote link
 app.get('/quotes', (req,res) => { 
     request.get({
         url: quotesURL
@@ -19,13 +20,13 @@ app.get('/quotes', (req,res) => {
             }
             
             // createQuotePW(body);
-            obj = {
+            passwordObj = {
                 pw: createQuotePW(JSON.parse(body).quoteText),
                 quote: JSON.parse(body).quoteText,
                 author: JSON.parse(body).quoteAuthor,
                 link: JSON.parse(body).quoteLink
             };
-            res.send(obj);
+            res.send(passwordObj);
         }
     });
 });
@@ -39,6 +40,9 @@ app.get('/credits', (req,res) => {
 });
 
 //methods
+
+//input: quote (string)
+//output: create password from first letter of each word in the quote
 function createQuotePW(quote) {
     var quotePW = quote.match(/\b(\w)/g).join('');
     console.log(quotePW);

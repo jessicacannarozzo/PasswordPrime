@@ -5,10 +5,10 @@
 Server is up!
 localhost:3000
 
-to install npm:
+to install npm: 
 npm install --save
 
-to connect to server
+to connect to server: 
 npm start
 or
 node server.js

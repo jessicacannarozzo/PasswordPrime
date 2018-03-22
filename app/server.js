@@ -2,6 +2,7 @@
 const express = require('express');
 const app = express();
 const request = require('request');
+const quotesURL = "https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=jsonp&jsonp=?";
 
 //routes
 app.get('/', (req,res) => { 
@@ -10,7 +11,7 @@ app.get('/', (req,res) => {
 
 app.get('/quotes', (req,res) => { 
     request.get({
-        url: "https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=jsonp&jsonp=?",
+        url: quotesURL
     }, (error, message,body) => {
         if (!error && message.statusCode === 200) {
             if (body.charAt(0) === '?') { //format
@@ -20,7 +21,9 @@ app.get('/quotes', (req,res) => {
             // createQuotePW(body);
             obj = {
                 pw: createQuotePW(body),
-                text: JSON.parse(body)
+                quote: JSON.parse(body).quoteText,
+                author: JSON.parse(body).quoteAuthor,
+                link: JSON.parse(body).quoteLink
             };
             res.send(obj);
         }

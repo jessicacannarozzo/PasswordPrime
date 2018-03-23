@@ -13,8 +13,6 @@ app.get('/', (req, res) => {
 
 // output: passwordObj with generated quote password, quote, author, quote link
 app.get('/quotes', (req, res) => { 
-    // var result = getQuote(handleQuote);
-
     getQuote(res);
 });
 
@@ -30,8 +28,9 @@ app.get('/credits', (req,res) => {
 //input: quote (string)
 //output: create password from first letter of each word in the quote
 function createQuotePW(quote) {
-    if (quote) {const quotePW = quote.match(/\b(\w)/g).join('');
-        console.log(quotePW);
+    if (quote) {
+        const quotePW = quote.match(/\b(\w)/g).join('');
+        
         return quotePW;
     }
 }
@@ -41,8 +40,9 @@ function getQuote(cb) {
     request.get({
         url: quotesURL
     }, (error, message,body) => {
-        if (!error && message.statusCode === 200) {          
-           body = formatQuote(body);
+        body = formatQuote(body);
+        if (!error && message.statusCode === 200 && JSON.parse(body).quoteText.length < quoteLen) {          
+        //    body = formatQuote(body);
             let quote = {};
             
             try {
@@ -61,6 +61,8 @@ function getQuote(cb) {
                 link: quote.quoteLink
             };
             return cb.send(passwordObj)
+        } else {
+            getQuote(cb);
         }
     });
 }

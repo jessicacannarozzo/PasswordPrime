@@ -30,25 +30,29 @@ app.get('/credits', (req,res) => {
 //input: quote (string)
 //output: create password from first letter of each word in the quote
 function createQuotePW(quote) {
-    const quotePW = quote.match(/\b(\w)/g).join('');
-    console.log(quotePW);
-    return quotePW;
+    if (quote) {const quotePW = quote.match(/\b(\w)/g).join('');
+        console.log(quotePW);
+        return quotePW;
+    }
 }
 
+// gets quote from quotesURL, returns quote to res
 function getQuote(cb) {
-
     request.get({
         url: quotesURL
     }, (error, message,body) => {
         if (!error && message.statusCode === 200) {          
-            if (body.charAt(0) === '?') { //format
-                body = body.substring(2,body.length-1);
+           body = formatQuote(body);
+            let quote = {};
+            
+            try {
+                quote = JSON.parse(body);
+            } catch(err) {
+                console.log(err);
             }
 
-            let quote = body && JSON.parse(body);
-
-            // console.log(JSON.parse(body).quoteText.length);
-            
+            console.log(quote.quoteText);
+                        
             
             const passwordObj = {
                 pw: createQuotePW(quote.quoteText),
@@ -61,7 +65,12 @@ function getQuote(cb) {
     });
 }
 
-function formatQuote() {
+// removes odd characters from quote
+function formatQuote(body) {
+    if (body.charAt(0) === '?') { //format
+        // console.log(body);
+        return body.substring(2,body.length-1);
+    }
 }
 
 app.listen(3000, () => console.log("We're live on 3000! In style."));

@@ -10,6 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "node": "^9.9.0",
+    "request": "^2.85.0",
+    "unirest": "^0.5.1"
   }
 }

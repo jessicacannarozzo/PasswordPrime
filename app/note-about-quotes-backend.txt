@@ -1,0 +1,1 @@
+the get request for /quotes sends back a JSON object with a password, the quote text, the author, and the source link. Some of the quotes have apostrophes inside them, and JSON won't parse this string. As a result,

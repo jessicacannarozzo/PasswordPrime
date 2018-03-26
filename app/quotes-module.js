@@ -1,5 +1,6 @@
-const request = require('request');
-const quotesURL = "https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=jsonp&jsonp=?";
+const unirest = require('unirest');
+const quotesURL = "https://andruxnet-random-famous-quotes.p.mashape.com/?cat=famous&count=1";
+const APIKey = "e3XdZah2iYmshpzDEF2ip2OLqWOSp1xmzfbjsn5otNlXeuUkPG";
 const quoteLen = 50;
 const pwLen = 14;
 const symbols = "!@#$%^&";
@@ -31,61 +32,28 @@ function createQuotePW(quote) {
 //logic: gets quote from quotesURL
 //output: returns quote to res
 exports.getQuote = (cb) => {
-    request.get({
-        url: quotesURL
-    }, (error, message,body) => {
-        if (body) body = formatObj(body);
-        if (!error && message.statusCode === 200 && (body && JSON.parse(body)).quoteText.length < quoteLen) {          
-            let quote = {};
-            
+    var thisInstance = this; //save so that we can go back incase our get request doesn't work out
+
+    unirest.get(quotesURL)
+    .header("X-Mashape-Key", APIKey)
+    .header("Accept", "application/json")
+    .end(function (result) {
+        if (result && result.body.quote.length < quoteLen) {
+            let passwordObj = {};
             try {
-                quote = JSON.parse(body);
-                const passwordObj = {
-                    pw: createQuotePW(quote.quoteText),
-                    quote: quote.quoteText,
-                    author: quote.quoteAuthor,
-                    link: quote.quoteLink
+                passwordObj = {
+                    pw: createQuotePW(result.body.quote),
+                    quote: result.body.quote,
+                    author: result.body.author,
+                    category: result.body.category
                 };
-                return cb.send(passwordObj)
             } catch(err) {
                 console.log(err);
             }
 
-            // console.log(quote.quoteText);
-
+            return cb.send(passwordObj);
         } else {
-            this.getQuote(cb); //find a new quote
+            thisInstance.getQuote(cb); //try again
         }
     });
-}
-
-//removes escape character (\) in quotes with apostrophes
-//input: quote obj
-//output: quote (string)
-exports.formatQuote = (obj) => {
-    try {
-        let quote = obj.quoteText;
-        
-        return quote;
-    } catch(err) {
-        console.log(err);
-    }
-}
-
-//removes odd characters from quote
-//input: body (string)
-//output: body (string) with JSON-safe characters
-function formatObj(body) {
-    if (body.charAt(0) === '?') { //format
-        for (i = 0; i < body.length; i++) {
-            if (body.charAt(i) === '\'') {
-                // console.log(body);
-                body = body.substring(0,i).concat("\\'").concat(body.substring(i+1,body.length));
-                // console.log(body);             
-                i +=2 ;   
-            }
-        }
-        console.log(body);
-        return body.substring(2,body.length-1);
-    }
 }

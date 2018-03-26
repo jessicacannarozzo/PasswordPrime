@@ -1,1 +1,4 @@
-the get request for /quotes sends back a JSON object with a password, the quote text, the author, and the source link. Some of the quotes have apostrophes inside them, and JSON won't parse this string. As a result,
+the get request for /quotes sends back a JSON object with a password, the quote text, the author, and the source link. Some of the quotes have apostrophes inside them, and JSON won't parse this string. As a result, I added an extra escape character (\) to be removed when displaying the quote later.
+
+
+Current issue: double quotes inside the JSON object value cannot be parsed. 

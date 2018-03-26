@@ -15,8 +15,10 @@ function createQuotePW(quote) {
 
         function addSpecialCharacters(pw) {
             while (pw.length < pwLen) {
-                console.log(pw);
-                pw += symbols[0];
+                let i = Math.floor(Math.random() * symbols.length);
+                let j = Math.floor(Math.random() * numbers.length);
+                pw += symbols[i];
+                pw = numbers[j] + pw;
             }
             return pw;
         }
@@ -71,6 +73,8 @@ exports.formatQuote = (obj) => {
 }
 
 //removes odd characters from quote
+//input: body (string)
+//output: body (string) with JSON-safe characters
 function formatObj(body) {
     if (body.charAt(0) === '?') { //format
         for (i = 0; i < body.length; i++) {

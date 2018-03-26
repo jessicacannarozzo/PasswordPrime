@@ -32,12 +32,10 @@ function createQuotePW(quote) {
 //logic: gets quote from quotesURL
 //output: returns quote to res
 exports.getQuote = (cb) => {
-    var thisInstance = this; //save so that we can go back incase our get request doesn't work out
-
     unirest.get(quotesURL)
     .header("X-Mashape-Key", APIKey)
     .header("Accept", "application/json")
-    .end(function (result) {
+    .end((result) => {
         if (result && result.body.quote.length < quoteLen) {
             let passwordObj = {};
             try {
@@ -53,7 +51,7 @@ exports.getQuote = (cb) => {
 
             return cb.send(passwordObj);
         } else {
-            thisInstance.getQuote(cb); //try again
+            this.getQuote(cb); //try again
         }
     });
 }

@@ -4,8 +4,7 @@ const express = require('express');
 const app = express();
 
 app.get('/', (req,res) => {
-    //res.send(200); express deprecated
-    res.sendStatus(200);
+    res.send(200); express deprecated
 });
 
 app.listen(3000, () => console.log("We're live on 3000! In style."));

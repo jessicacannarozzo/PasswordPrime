@@ -63,4 +63,121 @@ body{
 
 #a-button {
   visibility: hidden;
+  font-size: 12px;
+}
+
+#sequence{
+    display:inline-block;
+    align: center;
+}
+
+div.square{
+	border:4px solid white;
+	border-radius:10px;
+	padding:10px;
+	width:50px;
+	height:50px;
+	vertical-align:top;
+	display:inline-block;
+	margin:5px;
+}
+
+#red0{
+    background: repeating-linear-gradient(
+      45deg,
+      white,
+      white 10px,
+      red 10px,
+      red 20px
+    );
+}
+
+#orange0{
+    background: repeating-linear-gradient(
+      45deg,
+      white,
+      white 10px,
+      orange 10px,
+      orange 20px
+    );
+}
+
+#yellow0{
+    background: repeating-linear-gradient(
+      45deg,
+      white,
+      white 10px,
+      yellow 10px,
+      yellow 20px
+    );
+}
+
+#green0{
+    background: repeating-linear-gradient(
+      45deg,
+      white,
+      white 10px,
+      green 10px,
+      green 20px
+    );
+}
+
+#blue0{
+    background: repeating-linear-gradient(
+      45deg,
+      white,
+      white 10px,
+      blue 10px,
+      blue 20px
+    );
+}
+
+#purple0{
+    background: repeating-linear-gradient(
+      45deg,
+      white,
+      white 10px,
+      purple 10px,
+      purple 20px
+    );
+}
+
+#brown0{
+    background: repeating-linear-gradient(
+      45deg,
+      white,
+      white 10px,
+      saddlebrown 10px,
+      saddlebrown 20px
+    );
+}
+
+#pink0{
+    background: repeating-linear-gradient(
+      45deg,
+      white,
+      white 10px,
+      pink 10px,
+      pink 20px
+    );
+}
+
+#black0{
+    background: repeating-linear-gradient(
+      45deg,
+      white,
+      white 10px,
+      black 10px,
+      black 20px
+    );
+}
+
+#grey0{
+    background: repeating-linear-gradient(
+      45deg,
+      white,
+      white 10px,
+      silver 10px,
+      silver 20px
+    );
 }

@@ -1,4 +1,17 @@
-const colors = ["Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Brown", "Pink", "Black", "White"];
+const Red = "red",
+      Orange = "orange",
+      Yellow = "yellow",
+      Green = "green",
+      Blue = "blue",
+      Purple = "purple",
+      Brown = "saddlebrown",
+      Pink = "pink",
+      Black = "black",
+      Grey = "silver";
+
+// 0 stands for angle effect
+const colors = [Red, Orange, Yellow, Green, Blue, Purple, Brown, Pink, Black, Grey,
+    "red0", "orange0", "yellow0", "green0", "blue0", "purple0", "brown0", "pink0", "black0", "grey0"];
 
 const EMAIL = "EMAIL",
       BANK = "BANK",
@@ -36,8 +49,6 @@ $(document).ready(function(){
     $("#a-button").click(function() {
         registerPw();
     });
-
-    displayKeyboard();
 });
 
 
@@ -54,7 +65,7 @@ function generateUsername() {
 
 function createPw(pwType){
 
-    // lock buttons that creates passwords
+    // lock buttons that create passwords
     disableProperty("e-button", true);
     disableProperty("b-button", true);
     disableProperty("s-button", true);
@@ -63,12 +74,18 @@ function createPw(pwType){
     for(let i = 0; i < 5; i++){
         currentPassword[i] = colors[Math.floor(Math.random() * colors.length)];
     }
+
+    //TODO Need to send it to the server at some point
     userPasswords[pwType] = currentPassword;
 
-    $("#PIN").text(currentPassword + '\n');
-    $("#PIN").append("Please authenticate your new "+  pwType + " password below");
+    displayPwSequence(currentPassword);
 
-    // add authentication button
+    $("#PIN").append("Please authenticate your new "+  pwType + " password below\n");
+    $("#PIN").append(" * make sure to follow the same order *");
+
+    displayKeyboard();
+
+    // show authentication button
     document.getElementById("a-button").style.visibility="visible";
 }
 
@@ -78,7 +95,7 @@ function displayKeyboard(){
 }
 
 function registerPw(){
-    //*** need to check for correctness
+    //TODO need to check for correctness, once we have a colour keyboard
 
 
     window.alert("Congratulations! Your new password is in our system.");
@@ -100,11 +117,48 @@ function registerPw(){
         }
     });
 
-
+    // clear divs
     $("#PIN").text("");
+    $("#keyboard").text("");
 }
 
 
 function disableProperty(buttonId, disable){
     document.getElementById(buttonId).disabled = disable;
+}
+
+function displayPwSequence(sequence){
+   // clear table
+    $("#sequence").empty();
+
+    // show colour sequence
+    // table row setup
+    let pinSize = sequence.length;
+    let sequenceRow = $('<tr>');
+    $("#sequence").append(sequenceRow);
+
+    // populate row with new elements
+    for(let i = 0; i < pinSize; i++){
+        let square = $("<div>")
+            .addClass("square")
+            .attr({row: 0, col: i});
+
+         let colour = sequence[i];
+         let last = colour[colour.length-1];
+         if (last !== '0'){
+            // it's a solid colour
+            square.css("background-color",colour);
+         }
+         else{
+            // it's striped
+            square.attr('id', colour);
+         }
+
+        sequenceRow.append(square);
+    }
+
+    $("#PIN").append("1                  2                  3                  4                  5\n");
+
+    //TODO Delete this when everything else is working
+    $("#PIN").append("< "+ sequence + " >" + '\n\n');
 }

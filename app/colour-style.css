@@ -57,6 +57,11 @@ body{
     text-align: center;
 }
 
+#keyboard{
+    margin: auto;
+    width: 45%;
+}
+
 #PIN{
     white-space:pre-wrap;
 }

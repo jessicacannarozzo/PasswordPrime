@@ -37,6 +37,17 @@ $(document).ready(function(){
 
 });
 
+function validateForm(pwType, domain) {
+     console.log("ho");
+      var x = document.forms["myForm"][pwType].value;
+      console.log(x);
+      if (x == userPasswords[domain]) {
+        //alert("YOU ENTEERD THIS: " + x);
+        return false;
+      }
+      return false;
+}
+
 
 // generates a random username of 6 characters
 function generateUsername() {

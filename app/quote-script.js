@@ -1,5 +1,3 @@
-const quoteModule = require('./quotes-module.js');
-
 const EMAIL = "EMAIL",
       BANK = "BANK",
       SHOPPING = "SHOPPING";
@@ -37,7 +35,6 @@ $(document).ready(function(){
         registerPw();
     });
 
-    displayKeyboard();
 });
 
 
@@ -59,21 +56,31 @@ function createPw(pwType){
     disableProperty("b-button", true);
     disableProperty("s-button", true);
 
-    $.get("quotes",  function(password){
+    var password = ""
+
+    $.get("quotes", function(data){
             console.log("data: " + data);
             console.log("typeof: " + typeof data);
-    });
+            console.log("password: " + data.pw);
+            console.log("quote: " + data.quote);
+           // var responseObj = JSON.stringify(data);
 
-    $("#PIN").text(password+ '\n');
-    $("#PIN").append("Please authenticate your new "+  pwType + " password below");
+            password = data.pw
+            var quote = data.quote
+
+            userPasswords[pwType] = password;
+
+             $("#PIN").append("Quote: " + data.quote + '\n\n');
+             $("#PIN").append("Password: " +  data.pw + '\n\n');
+             $("#PIN").append("Please authenticate your new " +  pwType + " password below: \n");
+
+              document.getElementById("a-button").style.visibility="visible";
+            //replace word array with new words if there are an 
+            }); 
+
 
     // add authentication button
-    document.getElementById("a-button").style.visibility="visible";
-}
-
-
-function displayKeyboard(){
-    $("#keyboard").append("<p><5x4 colour keyboard here></p>");
+   
 }
 
 function registerPw(){
@@ -82,7 +89,6 @@ function registerPw(){
 
     window.alert("Congratulations! Your new password is in our system.");
     document.getElementById("a-button").style.visibility="hidden";
-
     //enable buttons to create other passwords, if applicable
     Object.entries(userPasswords).forEach(([key, value]) => {
         if (value.length === 0){
@@ -102,7 +108,6 @@ function registerPw(){
 
     $("#PIN").text("");
 }
-
 
 function disableProperty(buttonId, disable){
     document.getElementById(buttonId).disabled = disable;

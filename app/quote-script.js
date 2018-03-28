@@ -77,15 +77,14 @@ function createPw(pwType){
               document.getElementById("a-button").style.visibility="visible";
             //replace word array with new words if there are an 
             }); 
-
-
     // add authentication button
    
 }
 
+
+
 function registerPw(){
     //*** need to check for correctness
-
 
     window.alert("Congratulations! Your new password is in our system.");
     document.getElementById("a-button").style.visibility="hidden";

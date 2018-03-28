@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Colour PIN Password System</title>
+    <title>Quote Password System</title>
     <link rel = "stylesheet" type = "text/css" href = "colour-style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="quotes-module.js"></script>
@@ -23,18 +23,45 @@
             <img src="icons/icon-email.svg" alt="Email Icon" width="128" height="128">
             <br />
             <button class="pw-button" id="e-button">Create New Password</button>
+            <form name="myForm" onsubmit="return validateForm()">
+              TRIAL: <input type="text" name="epass">
+              <input type="submit" value="Submit" required>
+            </form>
+            <br />
+            <form name="myForm" onsubmit="return validateForm()" >
+              TEST: <input type="text" name="epass">
+              <input type="submit" value="Submit" required>
+            </form>
         </div>
         <div class="pw-box" id="bank">
             BANK<br /><br />
             <img src="icons/icon-bank.svg" alt="Bank Icon" width="128" height="128">
             <br />
             <button class="pw-button" id="b-button">Create New Password</button>
+            <form name="BankPass" onsubmit = "return validateBankForm()">
+              TRIAL: <input type="text" name="bpass">
+              <input type="submit" value="Submit" required>
+            </form>
+              <br />
+            <form name="myForm" onsubmit="return validateForm()">
+              TEST: <input type="text" name="epass">
+              <input type="submit" value="Submit" required>
+            </form>
         </div>
         <div class="pw-box" id="shopping">
             SHOPPING<br /><br />
             <img src="icons/icon-shopping.svg" alt="Shopping Icon" width="128" height="128">
             <br />
             <button class="pw-button" id="s-button">Create New Password</button>
+            <form name="myForm" onsubmit="return validateForm()" >
+              TRIAL: <input type="text" name="epass">
+              <input type="submit" value="Submit" required>
+            </form>
+              <br />
+            <form name="myForm" onsubmit="return validateForm()">
+              TEST: <input type="text" name="epass">
+              <input type="submit" value="Submit" required>
+            </form>
         </div>
     </div>
 
@@ -45,6 +72,8 @@
             <button id="a-button">Authenticate</button>
         </div>
     </div>
-
+    <form style="display: inline" action="http://localhost:3000" method="get">
+      <button>HOME</button>
+    </form>
 </body>
 </html>

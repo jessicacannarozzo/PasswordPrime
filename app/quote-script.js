@@ -1,4 +1,4 @@
-const quoteModule = require('./quotes-module.js');
+ const quoteModule = require('./quotes-module.js');
 
 const EMAIL = "EMAIL",
       BANK = "BANK",
@@ -26,6 +26,7 @@ $(document).ready(function(){
     $("#b-button").click(function() {
         this.style.backgroundColor='#c0c0c0'; //grey
         createPw(BANK);
+        document.getElementById("x-button").style.visibility="visible";
     });
 
     $("#s-button").click(function() {
@@ -33,10 +34,24 @@ $(document).ready(function(){
         createPw(SHOPPING);
     });
 
-    $("#a-button").click(function() {
+    $("validateForm()").click(function() {
         registerPw();
     });
+    function validateBankForm() {
+      console.log("ho");
+      var x = document.forms["myForm"]["bpass"].value;
+      if (x == "") {
+        alert("Name must be filled out");
+        return false;
+      }
 
+    }
+    $("#x-button").click(function() {
+        ;
+    });
+    $("#y-button").click(function() {
+        ;
+    });
     displayKeyboard();
 });
 
@@ -49,6 +64,7 @@ function generateUsername() {
     for (let i = 0; i < 6; i++){
         user += choices.charAt(Math.floor(Math.random() * choices.length));
     }
+
     return user;
 }
 

@@ -24,13 +24,13 @@
             <img src="icons/icon-email.svg" alt="Email Icon" width="128" height="128">
             <br />
             <button class="pw-button" id="e-button">Create New Password</button>
-            <form name="myForm" onsubmit="return validateForm("epass", "EMAIL")">
-              TRIAL: <input type="text" name="epass">
+            <form name="eForm" onsubmit= "return validateForm('eForm', 'EMAIL')">
+              TRIAL: <input type="text" name="EMAIL">
               <input type="submit" value="Submit" required>
             </form>
             <br />
-            <form name="myForm" onsubmit="return validateForm("epass", "EMAIL")" >
-              TEST: <input type="text" name="epass">
+            <form name="eFormT" onsubmit="return validateForm('eFormT', 'EMAIL')" >
+              TEST: <input type="text" name="EMAIL">
               <input type="submit" value="Submit" required>
             </form>
         </div>
@@ -39,13 +39,13 @@
             <img src="icons/icon-bank.svg" alt="Bank Icon" width="128" height="128">
             <br />
             <button class="pw-button" id="b-button">Create New Password</button>
-            <form name="BankPass" onsubmit = "return validateForm("bpass", "BANK")">
-              TRIAL: <input type="text" name="bpass">
+            <form name="bForm" onsubmit = "return validateForm('bForm', 'BANK')">
+              TRIAL: <input type="text" name="BANK">
               <input type="submit" value="Submit" required>
             </form>
               <br />
-            <form name="myForm" onsubmit="return validateForm("bpass", "BANK")">
-              TEST: <input type="text" name="bpass">
+            <form name="bFormT" onsubmit="return validateForm('bFormT', 'BANK')">
+              TEST: <input type="text" name="BANK">
               <input type="submit" value="Submit" required>
             </form>
         </div>
@@ -54,13 +54,13 @@
             <img src="icons/icon-shopping.svg" alt="Shopping Icon" width="128" height="128">
             <br />
             <button class="pw-button" id="s-button">Create New Password</button>
-            <form name="myForm" onsubmit="return validateForm("spass", "SHOPPING")" >
-              TRIAL: <input type="text" name="spass">
+            <form name="sForm" onsubmit="return validateForm('sForm', 'SHOPPING')" >
+              TRIAL: <input type="text" name="SHOPPING">
               <input type="submit" value="Submit" required>
             </form>
               <br />
-            <form name="myForm" onsubmit="return validateForm("spass", "SHOPPING")">
-              TEST: <input type="text" name="spass">
+            <form name="sFormT" onsubmit="return validateForm('sFormT', 'SHOPPING')">
+              TEST: <input type="text" name="SHOPPING">
               <input type="submit" value="Submit" required>
             </form>
         </div>

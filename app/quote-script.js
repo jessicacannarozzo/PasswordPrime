@@ -37,12 +37,12 @@ $(document).ready(function(){
 
 });
 
-function validateForm(pwType, domain) {
-     console.log("ho");
-      var x = document.forms["myForm"][pwType].value;
+function validateForm(form, pass) {
+      //var x = document.getElementById("eForm").click();
+      var x = document.forms[form][pass].value;
       console.log(x);
-      if (x == userPasswords[domain]) {
-        //alert("YOU ENTEERD THIS: " + x);
+      if (x == userPasswords[pass]) {
+        alert("YOU ENTEERD THIS: " + x);
         return false;
       }
       return false;
@@ -91,7 +91,6 @@ function createPw(pwType){
     // add authentication button
    
 }
-
 
 
 function registerPw(){

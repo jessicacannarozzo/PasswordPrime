@@ -34,6 +34,15 @@ $(document).ready(function(){
     $("#a-button").click(function() {
         registerPw();
     });
+    $("#readyB-button").click(function() {
+        document.getElementById("submitBank").style.visibility="visible";
+    });
+    $("#readyS-button").click(function() {
+        document.getElementById("submitShopping").style.visibility="visible";
+    });
+    $("#readyE-button").click(function() {
+        document.getElementById("submitEmail").style.visibility="visible";
+    });
 
 });
 
@@ -41,10 +50,13 @@ function validateForm(form, pass) {
       //var x = document.getElementById("eForm").click();
       var x = document.forms[form][pass].value;
       console.log(x);
+      console.log(form);
+      console.log(pass);
       if (x == userPasswords[pass]) {
-        alert("YOU ENTEERD THIS: " + x);
+        alert("CORRECT! YOU ENTEERD THIS: " + x);
         return false;
       }
+      alert("INCORRECT! YOU ENTEERD THIS: " + x);
       return false;
 }
 
@@ -87,9 +99,9 @@ function createPw(pwType){
 
               document.getElementById("a-button").style.visibility="visible";
             //replace word array with new words if there are an 
-            }); 
+            });
     // add authentication button
-   
+
 }
 
 

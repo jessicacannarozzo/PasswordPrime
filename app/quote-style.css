@@ -60,7 +60,18 @@ body{
 #PIN{
     white-space:pre-wrap;
 }
-
+#sFormT {
+	visibility: hidden;
+}
+#eFormT {
+	visibility: hidden;
+}
+#bFormT {
+	visibility: hidden;
+}
+#testboxs {
+	visibility: hidden;
+}
 #a-button {
   visibility: hidden;
 }

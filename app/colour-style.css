@@ -3,6 +3,10 @@ body{
 	font-family: "Arial", cursive, sans-serif;
 }
 
+button{
+    font-size: 16px;
+}
+
 #header {
     margin: auto;
     width: 50%;
@@ -68,7 +72,6 @@ body{
 
 #a-button {
   visibility: hidden;
-  font-size: 12px;
 }
 
 #sequence{
@@ -185,4 +188,21 @@ div.square{
       silver 10px,
       silver 20px
     );
+}
+
+#feedback, #PIN {
+    margin: auto;
+    padding: 10px;
+    text-align: center;
+    display: block;
+    font-size: 16px;
+}
+
+#feedback{
+    margin-top: 10px;
+}
+
+#ok-button{
+    background-color: #87CEFA; /* Blue */
+    margin-top: 10px;
 }

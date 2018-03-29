@@ -10,12 +10,6 @@ const Red = "red",
       Grey = "silver";
 
 // 0 stands for angle effect
-//const colours = [
-//    Red, "red0", Grey, "green0", Green,
-//    "blue0",Blue, "grey0", Orange, "orange0",
-//    Yellow, "yellow0", Black, "purple0", Purple,
-//    "brown0", Brown, "black0", Pink, "pink0"];
-
 const colours = [
     Red, Green, Grey, Orange, Blue,
     "red0", "green0", "grey0", "orange0", "blue0",
@@ -59,7 +53,7 @@ $(document).ready(function(){
     });
 
     $("#a-button").click(function() {
-        registerPw();
+        authenticatePw();
     });
 });
 
@@ -87,12 +81,12 @@ function createPw(pwType){
         currentPassword[i] = colours[Math.floor(Math.random() * colours.length)];
     }
 
-    //TODO Need to send it to the server at some point
+    //TODO Need to send it to the server at some point. Maybe at the end of user's session we send everything we need for analysis
     userPasswords[pwType] = currentPassword;
 
     displayPwSequence(currentPassword);
 
-    $("#PIN").append("Please authenticate your new "+  pwType + " password below\n");
+    $("#PIN").append("\nPlease authenticate your new "+  pwType + " password below\n");
     $("#PIN").append(" * make sure to follow the given order *\n\n");
 
     displayKeyboard();
@@ -127,7 +121,7 @@ function displayKeyboard(){
         for(let j = 0; j < cols; j++){
 
 
-            //TODO repeated code, see displayPwSequence(). Make a function if possible.
+            //TODO repeated code, see displayPwSequence(). Make a single function if possible.
             let colour = colours[c];
             let last = colour[colour.length-1];
             let key = $("<div>")
@@ -143,48 +137,49 @@ function displayKeyboard(){
             key.click (function (chooseKey){
                 let self = $(this);
                 currentTry.push(this.getAttribute("id"));
-
-
-                //TODO remove this later
-                console.log("key pressed: " + this.getAttribute("id"));
             });
 
             row.append(key);
             c++;
         }
     }
-
-
 }
 
-function registerPw(){
-    //TODO need to check for correctness
+function authenticatePw(){
+    // unable auth button
+    disableProperty("a-button", true);
 
+    //check for correctness
+    if(!passwordCorrect()){
+        currentTry = [];
+        displayFeedback(false);
+    }
+    else{
+        displayFeedback(true);
+        document.getElementById("a-button").style.visibility="hidden";
 
-    window.alert("Congratulations! Your new password is in our system.");
-    document.getElementById("a-button").style.visibility="hidden";
+        //enable buttons to create other passwords, if applicable
+        Object.entries(userPasswords).forEach(([key, value]) => {
+            if (value.length === 0){
+                if (key === EMAIL){
+                    disableProperty("e-button", false);
+                }
+                else if (key === BANK){
+                    disableProperty("b-button", false);
+                }
+                else {
+                    disableProperty("s-button", false);
+                }
 
-    //enable buttons to create other passwords, if applicable
-    Object.entries(userPasswords).forEach(([key, value]) => {
-        if (value.length === 0){
-            if (key === EMAIL){
-                disableProperty("e-button", false);
             }
-            else if (key === BANK){
-                disableProperty("b-button", false);
-            }
-            else {
-                disableProperty("s-button", false);
-            }
+        });
 
-        }
-    });
-
-    // clear divs
-    $("#sequence").text("");
-    $("#PIN").text("");
-    $("#keyboard").text("")
-                  .css('border','');
+        // clear divs
+        $("#sequence").text("");
+        $("#PIN").text("");
+        $("#keyboard").text("")
+                      .css('border','');
+    }
 }
 
 function disableProperty(buttonId, disable){
@@ -223,4 +218,43 @@ function displayPwSequence(sequence){
 
     //TODO Delete this when everything else is working
     console.log("PIN: < "+ sequence + " >" + '\n\n');
+}
+
+function passwordCorrect(){
+    if(currentTry.length !== currentPassword.length){
+        return false;
+    }
+    else{
+        for (let i = 0; i < currentTry.length; i++){
+            if(currentTry[i] !== currentPassword[i]){
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+function displayFeedback(correct){
+
+    let div = document.createElement('div');
+    $(div).attr('id', "msg")
+          .appendTo($("#feedback"));
+
+    if(correct){
+        $("#msg").html("CONGRATULATIONS!  ");
+    }
+    else{
+        $("#msg").html("INCORRECT PASSWORD. PLEASE TRY AGAIN.");
+    }
+
+    // add ok button
+    $("#feedback").append("<input type='button' id='ok-button' value='OK' />");
+    $("#ok-button").click(function() { clearFeedbackMsg(); });
+}
+
+function clearFeedbackMsg(){
+    $("#feedback").html("");
+
+     //enable auth button back
+     disableProperty("a-button", false);
 }

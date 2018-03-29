@@ -34,6 +34,15 @@ $(document).ready(function(){
     $("#a-button").click(function() {
         registerPw();
     });
+    $("#readyB-button").click(function() {
+        document.getElementById("submitBank").style.visibility="visible";
+    });
+    $("#readyS-button").click(function() {
+        document.getElementById("submitShopping").style.visibility="visible";
+    });
+    $("#readyE-button").click(function() {
+        document.getElementById("submitEmail").style.visibility="visible";
+    });
 
 });
 
@@ -82,9 +91,11 @@ function validateForm(form, pass) {
       console.log(x);
       var correct = false;
       if (x == userPasswords[pass]) {
-        alert("Password Correct (good job): " + x);
+        alert("CORRECT! YOU ENTEERD THIS: " + x);
         correct = true;
-      }
+      } else {
+        alert("INCORRECT! YOU ENTERED THIS: " + x);
+    }
       return false;
 }
 
@@ -127,9 +138,13 @@ function createPw(pwType){
             $("#PIN").append("\nPassword: " +  data.pw + '\n\n');
             $("#PIN").append("(Hint: Your password is made up of the first letter of each word in the quote!)\nPlease authenticate your new " +  pwType + " password in TRIAL \n");
 
-            }); 
+
+            document.getElementById("a-button").style.visibility="visible";
+            //replace word array with new words if there are an 
+            });
+
     // add authentication button
-   
+
 }
 
 

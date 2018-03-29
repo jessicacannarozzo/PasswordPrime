@@ -24,13 +24,15 @@
             <img src="icons/icon-email.svg" alt="Email Icon" width="128" height="128">
             <br />
             <button class="pw-button" id="e-button">Create New Password</button>
-            <form name="eForm"  onsubmit= "return validateTrial('eForm', 'EMAIL')">
-              TRIAL: <input type="text" name="EMAIL" oninput="startTiming()" >
+            <form name="eForm" onsubmit= "return validateForm('eForm', 'EMAIL')">
+              Practice: <input type="text" name="EMAIL"  oninput="startTiming()">
               <input type="submit" value="Submit" required>
             </form>
+            when comfortable hit ready<br />
+            <button class="pw-button" id="readyE-button">Ready</button>
             <br />
-            <form name="eFormT"  onsubmit="return validateForm('eFormT', 'EMAIL')" >
-              TEST: <input type="text" name="EMAIL" oninput="startTiming()">
+            <form id="submitEmail" name="eFormT" onsubmit="return validateForm('eFormT', 'EMAIL')" >
+              Login Test: <input type="text" name="EMAIL" oninput="startTiming()">
               <input type="submit" value="Submit" required>
             </form>
         </div>
@@ -39,14 +41,16 @@
             <img src="icons/icon-bank.svg" alt="Bank Icon" width="128" height="128">
             <br />
             <button class="pw-button" id="b-button">Create New Password</button>
-            <form name="bForm" onsubmit = "return validateTrial('bForm', 'BANK')">
-              TRIAL: <input type="text" name="BANK">
+            <form name="bForm" onsubmit = "return validateForm('bForm', 'BANK')">
+              Practice: <input type="text" name="BANK">
               <input type="submit" value="Submit" required>
             </form>
+            when comfortable hit ready<br />
+            <button class="pw-button" id="readyB-button">Ready</button>
               <br />
-            <form name="bFormT" onsubmit="return validateForm('bFormT', 'BANK')">
-              TEST: <input type="text" name="BANK">
-              <input type="submit" value="Submit" required>
+            <form id="submitBank" name="bFormT" onsubmit="return validateForm('bFormT', 'BANK')">
+              Login Test: <input type="text" name="BANK">
+              <input type="submit" value="Submit">
             </form>
         </div>
         <div class="pw-box" id="shopping">
@@ -54,13 +58,15 @@
             <img src="icons/icon-shopping.svg" alt="Shopping Icon" width="128" height="128">
             <br />
             <button class="pw-button" id="s-button">Create New Password</button>
-            <form name="sForm" onsubmit="return validateTrial('sForm', 'SHOPPING')" >
-              TRIAL: <input type="text" name="SHOPPING">
+            <form name="sForm" onsubmit="return validateForm('sForm', 'SHOPPING')" >
+              Practice: <input type="text" name="SHOPPING">
               <input type="submit" value="Submit" required>
             </form>
+            when comfortable hit ready<br />
+            <button class="pw-button" id="readyS-button">Ready</button>
               <br />
-            <form name="sFormT" onsubmit="return validateForm('sFormT', 'SHOPPING')">
-              TEST: <input type="text" name="SHOPPING">
+            <form id="submitShopping" name="sFormT" onsubmit="return validateForm('sFormT', 'SHOPPING')">
+              Login Test: <input  type="text" name="SHOPPING">
               <input type="submit" value="Submit" required>
             </form>
         </div>

@@ -136,6 +136,10 @@ function displayKeyboard(){
             //add a click listener to each key
             key.click (function (chooseKey){
                 let self = $(this);
+
+                //highlight clicked key
+                self.css("border","6px solid gray");
+
                 currentTry.push(this.getAttribute("id"));
             });
 
@@ -151,7 +155,6 @@ function authenticatePw(){
 
     //check for correctness
     if(!passwordCorrect()){
-        currentTry = [];
         displayFeedback(false);
     }
     else{
@@ -257,4 +260,17 @@ function clearFeedbackMsg(){
 
      //enable auth button back
      disableProperty("a-button", false);
+
+     //remove highlights from clicked keys
+     clearHighlights();
+}
+
+function clearHighlights(){
+    for(let i = 0; i < currentTry.length; i++){
+        let keyId = "#" + currentTry[i];
+        $(keyId).css("border", "none");
+    }
+
+    // clear user current try
+    currentTry = [];
 }

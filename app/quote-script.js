@@ -37,13 +37,53 @@ $(document).ready(function(){
 
 });
 
-function validateForm(form, pass) {
-      //var x = document.getElementById("eForm").click();
+
+//setup before functions
+var typingTimer;                //timer set to time of first key stroke
+var timing; //boolean so we only start timing of first key
+var d = new Date();
+
+//user is "finished typing," do something
+function doneTyping () {
+    timing = false;
+    console.log("DONE TYPING")
+    var t2 = performance.now()
+    console.log(t2)
+    console.log("took " + (t2 - typingTime) + " ms")
+    return t2 - typingTime;
+    
+}
+
+function startTiming(){
+    if (!timing){
+        typingTime = performance.now();
+        console.log("TYPING  " + typingTime)
+    }
+    timing = true;
+}
+
+function validateTrial(form, pass) {
+      time = doneTyping()
       var x = document.forms[form][pass].value;
+      var correct = false;
       console.log(x);
       if (x == userPasswords[pass]) {
-        alert("YOU ENTEERD THIS: " + x);
-        return false;
+        alert("Congratulations! Your new password is in our system ");
+        correct = true;
+
+      }
+      return false;
+}
+
+function validateForm(form, pass) {
+      time = doneTyping()
+      console.log(time)
+      var x = document.forms[form][pass].value;
+      console.log(x);
+      var correct = false;
+      if (x == userPasswords[pass]) {
+        alert("Password Correct (good job): " + x);
+        correct = true;
       }
       return false;
 }
@@ -74,19 +114,19 @@ function createPw(pwType){
             console.log("typeof: " + typeof data);
             console.log("password: " + data.pw);
             console.log("quote: " + data.quote);
-           // var responseObj = JSON.stringify(data);
+            // var responseObj = JSON.stringify(data);
 
             password = data.pw
             var quote = data.quote
 
             userPasswords[pwType] = password;
 
-             $("#PIN").append("Quote: " + data.quote + '\n\n');
-             $("#PIN").append("Password: " +  data.pw + '\n\n');
-             $("#PIN").append("Please authenticate your new " +  pwType + " password below: \n");
+            $("#QUOTE").append("Quote: " + data.quote + '\n');
+            $("#QUOTE").append('\n' + "\nAuthor: " + data.author + '\n\n');
 
-              document.getElementById("a-button").style.visibility="visible";
-            //replace word array with new words if there are an 
+            $("#PIN").append("\nPassword: " +  data.pw + '\n\n');
+            $("#PIN").append("(Hint: Your password is made up of the first letter of each word in the quote!)\nPlease authenticate your new " +  pwType + " password in TRIAL \n");
+
             }); 
     // add authentication button
    

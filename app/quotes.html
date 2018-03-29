@@ -24,8 +24,9 @@
             <img src="icons/icon-email.svg" alt="Email Icon" width="128" height="128">
             <br />
             <button class="pw-button" id="e-button">Create New Password</button>
-            <form name="eForm" onsubmit= "return validateForm('eForm', 'EMAIL')">
-              Practice: <input type="text" name="EMAIL"  oninput="startTiming()">
+            <form name="eForm" onsubmit= "return validateTrial('eForm', 'EMAIL')">
+              Practice: <input type="text" id="eTrial" name="EMAIL"  oninput="startTiming()">
+              <!--textarea id="eTrial" name="comment"></textarea-->
               <input type="submit" value="Submit" required>
             </form>
             when comfortable hit ready<br />
@@ -41,7 +42,7 @@
             <img src="icons/icon-bank.svg" alt="Bank Icon" width="128" height="128">
             <br />
             <button class="pw-button" id="b-button">Create New Password</button>
-            <form name="bForm" onsubmit = "return validateForm('bForm', 'BANK')">
+            <form name="bForm" onsubmit = "return validateTrial('bForm', 'BANK')">
               Practice: <input type="text" name="BANK">
               <input type="submit" value="Submit" required>
             </form>
@@ -58,7 +59,7 @@
             <img src="icons/icon-shopping.svg" alt="Shopping Icon" width="128" height="128">
             <br />
             <button class="pw-button" id="s-button">Create New Password</button>
-            <form name="sForm" onsubmit="return validateForm('sForm', 'SHOPPING')" >
+            <form name="sForm" onsubmit="return validateTrial('sForm', 'SHOPPING')" >
               Practice: <input type="text" name="SHOPPING">
               <input type="submit" value="Submit" required>
             </form>

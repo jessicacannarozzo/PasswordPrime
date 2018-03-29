@@ -10,6 +10,17 @@ let userPasswords = {
 
 let currentPassword = [];
 
+let logData = {
+    ID : "",
+    SCHEME : "quotes",
+    TIME : 0,
+    RESULT : "fail"
+}
+
+var timing = false;
+var typingTime  = 0;
+
+
 //function runs once the page DOM is ready for JavaScript code to execute
 $(document).ready(function(){
     document.user = generateUsername();
@@ -47,29 +58,35 @@ $(document).ready(function(){
 });
 
 
-//setup before functions
-var typingTimer;                //timer set to time of first key stroke
-var timing; //boolean so we only start timing of first key
-var d = new Date();
+ function doneTyping () {
+     timing = false;
+     console.log("DONE TYPING")
+     var t2 = performance.now()
+     console.log(t2)
+     console.log("took " + (t2 - typingTime) + " ms")
+     return t2 - typingTime;    
+ }
+ 
+ function startTiming(){
+     if (!timing){
+         typingTime = performance.now();
+         console.log("TYPING  " + typingTime)
+     }
+     timing = true;
+ }
+ 
 
-//user is "finished typing," do something
-function doneTyping () {
-    timing = false;
-    console.log("DONE TYPING")
-    var t2 = performance.now()
-    console.log(t2)
-    console.log("took " + (t2 - typingTime) + " ms")
-    return t2 - typingTime;
-    
-}
-
-function startTiming(){
-    if (!timing){
-        typingTime = performance.now();
-        console.log("TYPING  " + typingTime)
-    }
-    timing = true;
-}
+ function validateTrial(form, pass) {
+       time = doneTyping()
+       var x = document.forms[form][pass].value;
+       var correct = false;
+       console.log(x);
+       if (x == userPasswords[pass]) {
+         alert("Congratulations! Your new password is in our system ");
+         correct = true;
+       }
+       return false;
+ }
 
 function validateTrial(form, pass) {
       time = doneTyping()
@@ -79,23 +96,36 @@ function validateTrial(form, pass) {
       if (x == userPasswords[pass]) {
         alert("Congratulations! Your new password is in our system ");
         correct = true;
-
       }
+      sendToServer();
       return false;
+}
+
+function sendToServer(){
+    console.log(logData)
+    var reqObj = logData
+    $.post("data", reqObj, function(data, status){
+            console.log("data: " + data);
+            console.log("typeof: " + typeof data);
+    });
+
 }
 
 function validateForm(form, pass) {
       time = doneTyping()
-      console.log(time)
+      logData["TIME"] = time
       var x = document.forms[form][pass].value;
       console.log(x);
       var correct = false;
       if (x == userPasswords[pass]) {
-        alert("CORRECT! YOU ENTEERD THIS: " + x);
+        alert("CORRECT! YOU ENTERED THIS: " + x);
+        logData["RESULT"] = "success"
         correct = true;
       } else {
         alert("INCORRECT! YOU ENTERED THIS: " + x);
+        logData["RESULT"] = "failure"
     }
+      sendToServer();
       return false;
 }
 
@@ -108,6 +138,7 @@ function generateUsername() {
     for (let i = 0; i < 6; i++){
         user += choices.charAt(Math.floor(Math.random() * choices.length));
     }
+    logData["ID"] = user;
     return user;
 }
 
@@ -176,3 +207,4 @@ function registerPw(){
 function disableProperty(buttonId, disable){
     document.getElementById(buttonId).disabled = disable;
 }
+

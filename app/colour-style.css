@@ -70,8 +70,11 @@ button{
     white-space:pre-wrap;
 }
 
-#a-button{
-  visibility: hidden;
+.action-button{
+    display: block;
+    margin: auto;
+    visibility: hidden;
+    padding: 8px 28px;
 }
 
 #sequence{
@@ -211,3 +214,5 @@ div.square{
 div.square.highlight{
     border: 6px solid gray;
 }
+
+

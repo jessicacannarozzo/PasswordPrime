@@ -3,7 +3,7 @@ const Red = "red",
       Yellow = "yellow",
       Green = "green",
       Blue = "blue",
-      Purple = "purple",
+      Purple = "darkorchid",
       Brown = "saddlebrown",
       Pink = "pink",
       Black = "black",
@@ -15,7 +15,6 @@ const colours = [
     "red0", "green0", "grey0", "orange0", "blue0",
     Yellow, Purple, Black, Brown, Pink,
     "yellow0", "purple0", "black0", "brown0", "pink0"
-
    ];
 
 const EMAIL = "EMAIL",
@@ -36,22 +35,26 @@ $(document).ready(function(){
     document.user = generateUsername();
     $("#username").text("User: " + document.user);
 
-    //on click listeners
+    //on click listeners:
+    //e-button = creates email pwd
     $("#e-button").click(function() {
         this.style.backgroundColor='#c0c0c0'; //grey
         createPw(EMAIL);
     });
 
+    //b-button = creates bank pwd
     $("#b-button").click(function() {
         this.style.backgroundColor='#c0c0c0'; //grey
         createPw(BANK);
     });
 
+    //s-button = creates shopping pwd
     $("#s-button").click(function() {
         this.style.backgroundColor='#c0c0c0'; //grey
         createPw(SHOPPING);
     });
 
+    //a-button = authenticate button
     $("#a-button").click(function() {
         authenticatePw();
     });
@@ -81,7 +84,8 @@ function createPw(pwType){
         currentPassword[i] = colours[Math.floor(Math.random() * colours.length)];
     }
 
-    //TODO Need to send it to the server at some point. Maybe at the end of user's session we send everything we need for analysis
+    //TODO Need to send it to the server at some point.
+    //TODO Everything we need can be stored locally , then maybe at the end of a full session we send it all to server for analysis
     userPasswords[pwType] = currentPassword;
 
     displayPwSequence(currentPassword);
@@ -126,6 +130,7 @@ function displayKeyboard(){
             let last = colour[colour.length-1];
             let key = $("<div>")
                         .addClass("square")
+                        .addClass(colour)
                          key.attr('id', colour);
 
             if (last !== '0'){
@@ -136,11 +141,10 @@ function displayKeyboard(){
             //add a click listener to each key
             key.click (function (chooseKey){
                 let self = $(this);
+                let colourClicked = this.getAttribute("id");
 
-                //highlight clicked key
-                self.css("border","6px solid gray");
-
-                currentTry.push(this.getAttribute("id"));
+                self.addClass("highlight");
+                currentTry.push(colourClicked);
             });
 
             row.append(key);
@@ -182,6 +186,19 @@ function authenticatePw(){
         $("#PIN").text("");
         $("#keyboard").text("")
                       .css('border','');
+
+
+       // check if all passwords are authenticated
+       let count = 0;
+       for (let i in userPasswords) {
+           if (userPasswords[i].length !== 0) {
+               count++;
+           }
+        }
+        if (count === 3) {
+        // all 3 passwords have been authenticated. Add practice + login test options
+        addPracticeAndLogin();
+        }
     }
 }
 
@@ -189,7 +206,7 @@ function disableProperty(buttonId, disable){
     document.getElementById(buttonId).disabled = disable;
 }
 
-function displayPwSequence(sequence){
+function displayPwSequence(sequence) {
    // clear table
     $("#sequence").empty();
 
@@ -207,7 +224,7 @@ function displayPwSequence(sequence){
 
         let square = $("<div>")
             .addClass("square")
-            .attr('id', colour);
+            .addClass(colour);
 
          if (last !== '0'){
             // it's a solid colour
@@ -218,9 +235,6 @@ function displayPwSequence(sequence){
     }
 
     $("#PIN").append("1                  2                  3                  4                  5\n");
-
-    //TODO Delete this when everything else is working
-    console.log("PIN: < "+ sequence + " >" + '\n\n');
 }
 
 function passwordCorrect(){
@@ -266,11 +280,50 @@ function clearFeedbackMsg(){
 }
 
 function clearHighlights(){
-    for(let i = 0; i < currentTry.length; i++){
+    for (let i = 0; i < currentTry.length; i++) {
         let keyId = "#" + currentTry[i];
-        $(keyId).css("border", "none");
+        $(keyId).removeClass("highlight");
     }
 
     // clear user current try
     currentTry = [];
 }
+
+function addPracticeAndLogin() {
+
+    // make an array of of pw types, to be used as ids
+    let pwTypes = [];
+    pwTypes = Object.keys(userPasswords);
+
+    for (let i = 0; i < 3; i++) {
+        let div = document.createElement('div'),
+            practiceButton = document.createElement('button'),
+            loginButton = document.createElement('button'),
+            pwType = pwTypes[i].toLowerCase();
+
+        $(practiceButton).attr('class', 'pw-button')
+                         .attr('id', pwType +'practice')
+                         .text("Practice Password")
+                         .click(practiceMode());
+
+         $(loginButton).attr('class', 'pw-button')
+                       .attr('id', pwType +'login')
+                       .text("Test Login")
+                       .click(loginMode());
+
+        $(practiceButton).appendTo($(div));
+        $(loginButton).appendTo($(div));
+
+        $(div).appendTo($("#" + pwType));
+        $(div).appendTo($("#" + pwType));
+    }
+}
+
+function practiceMode(pwType){
+    console.log("practice mode for " + pwType);
+}
+
+function loginMode(pwType){
+    console.log("login mode for " + pwType);
+}
+

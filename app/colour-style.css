@@ -46,10 +46,10 @@ button{
 .pw-button{
     background-color: #4CAF50; /* Green */
     border-radius: 8px;
-    font-size: 12px;
+    font-size: 16px;
     color: white;
     padding: 8px 28px;
-    align: center;
+    align-items: center;
     margin-top: 10px;
     margin-bottom: 10px;
 }
@@ -70,7 +70,7 @@ button{
     white-space:pre-wrap;
 }
 
-#a-button {
+#a-button{
   visibility: hidden;
 }
 
@@ -90,7 +90,7 @@ div.square{
 	margin:5px;
 }
 
-#red0{
+.red0{
     background: repeating-linear-gradient(
       45deg,
       white,
@@ -100,7 +100,7 @@ div.square{
     );
 }
 
-#orange0{
+.orange0{
     background: repeating-linear-gradient(
       45deg,
       white,
@@ -110,7 +110,7 @@ div.square{
     );
 }
 
-#yellow0{
+.yellow0{
     background: repeating-linear-gradient(
       45deg,
       white,
@@ -120,7 +120,7 @@ div.square{
     );
 }
 
-#green0{
+.green0{
     background: repeating-linear-gradient(
       45deg,
       white,
@@ -130,7 +130,7 @@ div.square{
     );
 }
 
-#blue0{
+.blue0{
     background: repeating-linear-gradient(
       45deg,
       white,
@@ -140,17 +140,17 @@ div.square{
     );
 }
 
-#purple0{
+.purple0{
     background: repeating-linear-gradient(
       45deg,
       white,
       white 10px,
-      purple 10px,
-      purple 20px
+      darkorchid 10px,
+      darkorchid 20px
     );
 }
 
-#brown0{
+.brown0{
     background: repeating-linear-gradient(
       45deg,
       white,
@@ -160,7 +160,7 @@ div.square{
     );
 }
 
-#pink0{
+.pink0{
     background: repeating-linear-gradient(
       45deg,
       white,
@@ -170,7 +170,7 @@ div.square{
     );
 }
 
-#black0{
+.black0{
     background: repeating-linear-gradient(
       45deg,
       white,
@@ -180,7 +180,7 @@ div.square{
     );
 }
 
-#grey0{
+.grey0{
     background: repeating-linear-gradient(
       45deg,
       white,
@@ -205,4 +205,9 @@ div.square{
 #ok-button{
     background-color: #87CEFA; /* Blue */
     margin-top: 10px;
+    font-size: 16px;
+}
+
+div.square.highlight{
+    border: 6px solid gray;
 }

@@ -21,17 +21,22 @@ const EMAIL = "EMAIL",
       BANK = "BANK",
       SHOPPING = "SHOPPING";
 
-//TODO: clear arrays after done testing
 let userPasswords = {
-    EMAIL: ["yellow0", "purple0", "black0", "brown0", "pink0"],
-    BANK: [Red, Green, Grey, Orange, Blue],
-    SHOPPING: [Yellow, Purple, Black, Brown, Pink]
+    EMAIL: [],
+    BANK: [],
+    SHOPPING: []
 }
 
 let currentPassword = [],
     currentTry = [];
 
 let practiceTrials = {
+    EMAIL:[],
+    BANK: [],
+    SHOPPING: []
+}
+
+let loginTrials = {
     EMAIL:{},
     BANK: {},
     SHOPPING: {}
@@ -45,25 +50,23 @@ $(document).ready(function(){
     //on click listeners:
     //e-button = creates email pwd
     $("#e-button").click(function() {
-        this.style.backgroundColor='#c0c0c0'; //grey
         createPw(EMAIL);
     });
 
     //b-button = creates bank pwd
     $("#b-button").click(function() {
-        this.style.backgroundColor='#c0c0c0'; //grey
         createPw(BANK);
     });
 
     //s-button = creates shopping pwd
     $("#s-button").click(function() {
-        this.style.backgroundColor='#c0c0c0'; //grey
         createPw(SHOPPING);
     });
 
-    //a-button = authenticate button
-    $("#a-button").click(function() {
-        authenticatePw();
+    $("#keyboard-button").click(function(event) {
+        if ($(event.target).text() === 'Submit') {
+            authenticatePw();
+        }
     });
 });
 
@@ -79,15 +82,11 @@ function generateUsername() {
     return user;
 }
 
-function createPw(pwType){
-
-    // lock buttons that create passwords
-//    disableProperty("e-button", true);
-//    disableProperty("b-button", true);
-//    disableProperty("s-button", true);
+function createPw(pwType) {
+    setButtonsActiveState('.create-button', false);
 
     // generate new password
-    for(let i = 0; i < 5; i++){
+    for (let i = 0; i < 5; i++) {
         currentPassword[i] = colours[Math.floor(Math.random() * colours.length)];
     }
 
@@ -97,18 +96,20 @@ function createPw(pwType){
 
     displayPwSequence(currentPassword);
 
-    $("#PIN").append("\nPlease authenticate your new "+  pwType + " colour PIN below\n");
+    $("#sequence").prepend("\nYOUR NEW "+  pwType + " COLOUR PIN:\n");
+    $("#PIN").append("\nPlease authenticate your colour PIN below\n");
     $("#PIN").append(" * make sure to follow the given order *\n\n");
 
-    displayKeyboard();
-
-    // show authentication button
-    document.getElementById("a-button").style.visibility="visible";
+    startKeyboard();
 }
 
+function hideKeyboard() {
+    $('#kb-container').hide();
+}
 
-function displayKeyboard(){
-    $("#keyboard").css("border","2px solid black");
+function startKeyboard(){
+    currentTry = [];
+    $("#keyboard").text('');
 
     let rows = 4,
         cols = 5,
@@ -117,28 +118,25 @@ function displayKeyboard(){
     // make a counter for the colours array
     let c = 0;
 
-
     // create table row objects
-    for(let x = 0; x < rows; x++){
+    for (let x = 0; x < rows; x++) {
         tableRows[x] = $('<tr>');
     }
 
-    for(let i = 0; i < rows; i++){
-
+    for (let i = 0; i < rows; i++) {
         let row = tableRows[i];
         $("#keyboard").append(row);
 
         // for each row, add coloured squares
-        for(let j = 0; j < cols; j++){
+        for (let j = 0; j < cols; j++) {
 
-
-            //TODO repeated code, see displayPwSequence(). Make a single function if possible.
             let colour = colours[c];
             let last = colour[colour.length-1];
             let key = $("<div>")
                         .addClass("square")
+                        .addClass("key")
                         .addClass(colour)
-                         key.attr('id', colour);
+                        .attr('id', colour);
 
             if (last !== '0'){
                // it's a solid colour
@@ -150,88 +148,41 @@ function displayKeyboard(){
                 let self = $(this);
                 let colourClicked = this.getAttribute("id");
 
-                self.addClass("highlight");
                 currentTry.push(colourClicked);
-
-                //TODO: remove
-                console.log("currentTry: "+currentTry);
             });
 
             row.append(key);
             c++;
         }
     }
+
+    $('#keyboard-button').text('Submit');
+    $("#kb-container").show();
+}
+
+function setButtonsActiveState(selector, active) {
+    $(selector).each(function (index, elem) { $(elem).attr('disabled', !active); });
 }
 
 function authenticatePw(){
-    // unable auth button
-//    disableProperty("a-button", true);
 
     //check for correctness
     if(!passwordCorrect()){
-        displayFeedback(false);
+        displayFeedback('INCORRECT PASSWORD. PLEASE TRY AGAIN.', 'Try again', startKeyboard);
     }
     else{
-        displayFeedback(true);
-        document.getElementById("a-button").style.visibility="hidden";
-
-        //enable buttons to create other passwords, if applicable
-//        Object.entries(userPasswords).forEach(([key, value]) => {
-//            if (value.length === 0){
-//                if (key === EMAIL){
-//                    disableProperty("e-button", false);
-//                }
-//                else if (key === BANK){
-//                    disableProperty("b-button", false);
-//                }
-//                else {
-//                    disableProperty("s-button", false);
-//                }
-//
-//            }
-//        });
+        displayFeedback('SUCCESS!', 'OK', refreshMenu);
 
         // clear divs
         $("#sequence").text("");
         $("#PIN").text("");
-        $("#keyboard").text("")
-                      .css('border','');
-
-
-       // check if all passwords are authenticated
-       let count = 0;
-       for (let i in userPasswords) {
-           if (userPasswords[i].length !== 0) {
-               count++;
-           }
-        }
-        if (count === 3) {
-        // all 3 passwords have been authenticated. Make practice + login test options visible
-        addPracticeAndLogin();
-        }
     }
-
-
-
-
-    //TODO: Remove all below after done testing for practice mode
-    // clear divs
-    $("#sequence").text("");
-    $("#PIN").text("");
-    $("#keyboard").text("")
-                  .css('border','');
-    document.getElementById("a-button").style.visibility="hidden";
-    currentTry = [];
-    addPracticeAndLogin();
 }
-
-//function disableProperty(buttonId, disable){
-//    document.getElementById("#"+buttonId).disabled = disable;
-//}
 
 function displayPwSequence(sequence) {
    // clear table
     $("#sequence").empty();
+    $("#PIN").empty();
 
     // show colour sequence
     // table row setup
@@ -274,43 +225,33 @@ function passwordCorrect(){
     }
 }
 
-function displayFeedback(correct){
+function refreshMenu() {
 
-    let div = document.createElement('div');
-    $(div).attr('id', "msg")
-          .appendTo($("#feedback"));
-
-    if(correct){
-        $("#msg").html("CONGRATULATIONS!  ");
-    }
-    else{
-        $("#msg").html("INCORRECT PASSWORD. PLEASE TRY AGAIN.");
+    if (userPasswords[EMAIL].length === 0) {
+        setButtonsActiveState('#e-button', true);
     }
 
-    // add ok button
-    $("#feedback").append("<input type='button' class='action-button'id='ok-button' value='OK' />");
-    $("#ok-button").css('visibility', 'visible');
-    $("#ok-button").click(function() { clearUpForAnotherTry(); });
+    if (userPasswords[BANK].length === 0) {
+        setButtonsActiveState('#b-button', true);
+    }
+
+    if (userPasswords[SHOPPING].length === 0) {
+        setButtonsActiveState('#s-button', true);
+    }
+
+    if (userPasswords[SHOPPING].length !== 0 && userPasswords[BANK].length !== 0 && userPasswords[EMAIL].length !== 0) {
+        addPracticeAndLogin();
+        $('.create-button').hide();
+    }
 }
 
-function clearUpForAnotherTry(){
-    $("#feedback").html("");
-
-     //enable action button
-//     disableProperty("a-button", false);
-
-     //remove highlights from clicked keys
-     clearHighlights();
-}
-
-function clearHighlights(){
-    for (let i = 0; i < currentTry.length; i++) {
-        let keyId = "#" + currentTry[i];
-        $(keyId).removeClass("highlight");
-    }
-
-    // clear user current try
-    currentTry = [];
+function displayFeedback(msg, buttonMsg, callback){
+    hideKeyboard();
+    $('#feedback').show();
+    $('#feedback-msg').text(msg);
+    $('#feedback-button').text(buttonMsg)
+                         .unbind()
+                         .click(function () { $('#feedback').hide(); typeof callback === 'function' && callback(); });
 }
 
 function addPracticeAndLogin() {
@@ -346,114 +287,97 @@ function addPracticeAndLogin() {
 }
 
 function practiceMode(){
-
     let pwType = this.data("pwType").toUpperCase();
 
-    // lock other buttons
-//    $('.pw-button').each(function() {
-//        disableProperty(this.id, true);
-//    });
-
     // show PIN
+    $('#pin-container').show();
+    $('#hideshow-button').show();
     currentPassword = userPasswords[pwType];
     displayPwSequence(currentPassword);
-    addHideShowButton(pwType);
-    $("#sequence").prepend("\n\n" + pwType + " Colour PIN trial\n");
+    $("#kb-container").prepend("\n\n" + pwType + " Colour PIN Practice Trial\n");
 
     // show keyboard
-    displayKeyboard();
-    $("#keyboard").prepend("\nPlease enter your "+  pwType + " colour PIN below\n\n");
-    $("#submit-button").css('visibility', 'visible')
-                      .data('pwType', pwType)
-                      .click(practiceResults);
+    startKeyboard();
+    $('#msg').text("Please enter your "+  pwType + " colour PIN below");
 
-
-    // User has 3 tries per round. The number of rounds is unlimited on practice mode.
-    let currentTrial = (Object.keys(practiceTrials[pwType]).length) + 1,
-        key = "T" + currentTrial,
-        trialRecord = createTrialObj(key);
-
-//    while (trialRecord.tries < 4 || trialRecord.result !== true){
-//        //log
-//        trialRecord.tries ++;
-//
-//        // display partial results
-//        if(passwordCorrect()){
-//            trialRecord.result= true;
-//            displayFeedback(true);
-//        }
-//        else{
-//            displayResults(currentTrial, trialRecord.result);
-//            //change button to try again
-//            displayFeedback(false);
-//        }
-//    }
-
+    // User has 3 tries per round. Unlimited rounds on practice mode.
+    let trialRecord = createTrialObj();
 
     //record round results onto practiceTrials
-    practiceTrials[pwType] = trialRecord;
+    practiceTrials[pwType].push(trialRecord);
 
-    //TODO: only unlock the ones not logged in yet
-    // unlock other buttons
-//    $('.pw-button').each(function() {
-//        disableProperty(this.id, false);
-//    });
+    $('#keyboard-button').unbind().click(logTrialResult.bind(this, trialRecord));
 
+   startKeyboard();
 
-    //TODO: repeated code. Make a function later.
-    // clear divs
-//    $("#sequence").text("");
-//    $("#PIN").text("");
-//    $("#keyboard").text("")
-//                  .css('border','');
+}
+
+function logTrialResult(currentTryObj, finishCallback){
+    let elem = $(event.target);
+
+    currentTryObj.tries++;
+
+    // check correctness and display partial results
+    if(passwordCorrect()){
+        currentTryObj.result = true;
+        displayFeedback('SUCCESS! (tries: ' + currentTryObj.tries + '/3)', 'OK', finishCallback);
+
+    } else  if (currentTryObj.tries < 3) {
+        displayFeedback('Wrong password. Please, try again. \n(Try: ' + currentTryObj.tries + '/3)', 'OK', startKeyboard);
+
+    } else {
+        displayFeedback('Wrong password. \nEnd of trial.', 'OK', finishCallback);
+    }
+
+    //TODO remove below
+    console.log("practiceTrials: " + practiceTrials);
+    console.log("loginTrials: " + loginTrials);
 }
 
 function loginMode(){
-    //TODO:
-    //unable practice + test options for the given type after 3 trials & make them gray
-    //add end of session message + clear everything up + maybe send everything at once to server
-}
+    let pwType = this.data("pwType").toUpperCase();
+    setButtonsActiveState('#' + pwType.toLowerCase() + 'practice', false);
+    setButtonsActiveState('#' + pwType.toLowerCase() + 'login', false);
 
+    // hide PIN
+    $('#pin-container').hide();
+    $('#hideshow-button').hide();
 
-// add button to hide/show user's PIN
-function addHideShowButton(pwType){
-    $("#hideshow-button").css('visibility', 'visible')
-                         .addClass('visible')
-                         .data('pwType', pwType)
-                         .click(changeState.bind($("#hideshow-button")));
-}
+    $("#kb-container").prepend("\n\n" + pwType + " Colour PIN Login Test\n\n");
+    // show keyboard
+    startKeyboard();
+    $('#msg').text("Please enter your "+  pwType + " colour PIN below");
 
-// callback for submit button
-function practiceResults(){
-    //TODO: remove
-    console.log("currentPassword: "+currentPassword);
+    // User has 3 tries in only one round
+    let currentTrial = createTrialObj();
+
+    //record round results onto loginTrials
+    loginTrials[pwType] = currentTrial;
+
+    $('#keyboard-button').unbind().click(logTrialResult.bind(this, currentTrial));
+
+   startKeyboard();
+
 }
 
 function createTrialObj(){
     return ({tries: 0, result: false});
 }
 
-function displayResults(trial, result){
-    let r = result? "Success!" : "Fail";
-    $("#keyboard").append("TRIAL " + trial + "/3   RESULT: " + r);
-}
-
-function changeState(){
-    if (this.hasClass("visible")){
-        this.removeClass("visible")
+var changeState = function (){
+    let elem = $('#hideshow-button');
+    if (elem.hasClass("visible")){
+        elem.removeClass("visible")
             .addClass("hidden")
             .text("Show PIN");
 
-        // clear PIN
-        $("#sequence").text("");
-        $("#PIN").text("");
+        $('#pin-container').hide();
+
     }
     else{
-        displayPwSequence(currentPassword);
-        this.removeClass("hidden")
+        $('#pin-container').show();
+        elem.removeClass("hidden")
             .addClass("visible")
             .text("Hide PIN");
     }
 }
-
-

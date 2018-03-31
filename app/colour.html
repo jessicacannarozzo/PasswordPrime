@@ -22,36 +22,43 @@
             E-MAIL<br /><br />
             <img src="icons/icon-email.svg" alt="Email Icon" width="128" height="128">
             <br />
-            <button class="pw-button" id="e-button">Create New Password</button>
+            <button class="pw-button create-button" id="e-button">Create New Password</button>
         </div>
         <div class="pw-box" id="bank">
             BANK<br /><br />
             <img src="icons/icon-bank.svg" alt="Bank Icon" width="128" height="128">
             <br />
-            <button class="pw-button" id="b-button">Create New Password</button>
+            <button class="pw-button create-button" id="b-button">Create New Password</button>
         </div>
         <div class="pw-box" id="shopping">
             SHOPPING<br /><br />
             <img src="icons/icon-shopping.svg" alt="Shopping Icon" width="128" height="128">
             <br />
-            <button class="pw-button" id="s-button">Create New Password</button>
+            <button class="pw-button create-button" id="s-button">Create New Password</button>
         </div>
     </div>
 
-    <div class="kb-container">
-        <span>
-            <button class="action-button" id="hideshow-button">Hide Pin</button>
-        </span>
-        <table id="sequence"></table>
-        <div id="PIN"></div>
-
-        <table id="keyboard"></table>
-        <div id="actions-container">
-            <button class="action-button" id="a-button">Authenticate</button>
-            <button class="action-button" id="submit-button">Submit</button>
+    <div id="kb-container" class="centered-text">
+        <div class="centered-text">
+            <button class="action-button visible" id="hideshow-button" onclick="changeState()">Hide PIN</button>
         </div>
-        <div id="feedback"></div>
+        <div id="pin-container">
+            <div class="centered-text">
+                <table id="sequence"></table>
+            </div>
+            <div id="PIN"></div>
+        </div>
 
+        <div class="centered-text" id="msg"></div>
+        <div id="input-container">
+            <table id="keyboard"></table>
+            <button class="action-button" id="keyboard-button"></button>
+        </div>
+    </div>
+
+    <div id="feedback">
+        <span id="feedback-msg"></span>
+        <button class='action-button' id='feedback-button'></button>
     </div>
 
 </body>

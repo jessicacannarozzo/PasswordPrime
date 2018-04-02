@@ -24,16 +24,9 @@
             <img src="icons/icon-email.svg" alt="Email Icon" width="128" height="128">
             <br />
             <button class="pw-button" id="e-button">Create New Password</button>
-            <form name="eForm" onsubmit= "return validateForm('eForm', 'EMAIL')">
-              Practice: <input type="text" name="EMAIL">
-              <input type="submit" value="Submit" required>
-            </form>
-            when comfortable hit ready<br />
-            <button class="pw-button" id="readyE-button">Ready</button>
-            <br />
-            <form id="submitEmail" name="eFormT" onsubmit="return validateForm('eFormT', 'EMAIL')" >
-              Login Test: <input type="text" name="EMAIL">
-              <input type="submit" value="Submit" required>
+            <form name="eForm" onsubmit= "return validateForm('eForm', 'EMAIL')" >
+              Practice: <input id = "emailform" type="text" name="EMAIL">
+              <input id= "es" type="submit" value="Submit" disabled>
             </form>
         </div>
         <div class="pw-box" id="bank">
@@ -42,15 +35,8 @@
             <br />
             <button class="pw-button" id="b-button">Create New Password</button>
             <form name="bForm" onsubmit = "return validateForm('bForm', 'BANK')">
-              Practice: <input type="text" name="BANK">
-              <input type="submit" value="Submit" required>
-            </form>
-            when comfortable hit ready<br />
-            <button class="pw-button" id="readyB-button">Ready</button>
-              <br />
-            <form id="submitBank" name="bFormT" onsubmit="return validateForm('bFormT', 'BANK')">
-              Login Test: <input type="text" name="BANK">
-              <input type="submit" value="Submit">
+              Practice: <input id= "bankform" type="text" name="BANK" >
+              <input id= "bs" type="submit" value="Submit" disabled>
             </form>
         </div>
         <div class="pw-box" id="shopping">
@@ -58,25 +44,33 @@
             <img src="icons/icon-shopping.svg" alt="Shopping Icon" width="128" height="128">
             <br />
             <button class="pw-button" id="s-button">Create New Password</button>
-            <form name="sForm" onsubmit="return validateForm('sForm', 'SHOPPING')" >
-              Practice: <input type="text" name="SHOPPING">
-              <input type="submit" value="Submit" required>
-            </form>
-            when comfortable hit ready<br />
-            <button class="pw-button" id="readyS-button">Ready</button>
-              <br />
-            <form id="submitShopping" name="sFormT" onsubmit="return validateForm('sFormT', 'SHOPPING')">
-              Login Test: <input  type="text" name="SHOPPING">
-              <input type="submit" value="Submit" required>
+            <form name="sForm" onsubmit="return validateForm('sForm', 'SHOPPING')">
+              Practice: <input id="shopform" type="text" name="SHOPPING">
+              <input id= "ss" type="submit" value="Submit" disabled>
             </form>
         </div>
+
     </div>
+    <button class="Final-Test" id="finaltest" onclick= "randomOrder()" >Final Test</button>
+    <br />
+    <form id="TestEmail" name="eTest" onsubmit="return validateFINAL('eTest', 'EMAIL')" required>
+      E-MAIL Test: <input id= "EmailTest" type="text"  name="EMAIL">
+      <input id= "emailbutton" type="submit" value="Submit">
+    </form>
+    <form id="TestBank" name="bTest" onsubmit="return validateFINAL('bTest', 'BANK')" required>
+      Shopping Test: <input id= "BankTest" type="text"  name="BANK">
+      <input id= "bankbutton" type="submit" value="Submit" >
+    </form>
+    <form id="TestShop" name="sTest" onsubmit="return validateFINAL('sTest', 'SHOPPING')" required >
+      Bank Test: <input id= "shopTest" type="text"  name="SHOPPING">
+      <input id= "shopbutton" type="submit" value="Submit" >
+    </form>
 
     <div class="kb-container">
         <div id="PIN"></div>
         <div id="keyboard"></div>
         <div id="authenticate-container">
-            <button id="a-button">Authenticate</button>
+            <button id="a-button">Next</button>
         </div>
     </div>
     <form style="display: inline" action="http://localhost:3000" method="get">

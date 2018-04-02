@@ -60,18 +60,27 @@ body{
 #PIN{
     white-space:pre-wrap;
 }
-#submitBank {
-	visibility: hidden;
-}
-#submitShopping {
-	visibility: hidden;
-}
-#submitEmail {
-	visibility: hidden;
-}
-#testboxs {
-	visibility: hidden;
-}
 #a-button {
   visibility: hidden;
+}
+#finaltest{
+	visibility: hidden;
+}
+#TestEmail{
+	visibility: hidden;
+}
+#EmailTest{
+	visibility: hidden;
+}
+#TestBank{
+	visibility: hidden;
+}
+#BankTest{
+	visibility: hidden;
+}
+#TestShop{
+	visibility: hidden;
+}
+#shopTest{
+	visibility: hidden;
 }

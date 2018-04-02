@@ -193,7 +193,7 @@ function randomOrder(){
     disableProperty("finaltest",true);
     return;
   }
-  for (let i = 0; i < 6; i++){num= Math.floor((Math.random() * 3) + 1);  }
+  num= Math.floor((Math.random() * 3) + 1);
   if (num==1){
     if(emailbool==true){
       emailbool=false;

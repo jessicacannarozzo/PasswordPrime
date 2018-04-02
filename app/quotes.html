@@ -54,19 +54,20 @@
     <button class="Final-Test" id="finaltest" onclick= "randomOrder()" >Final Test</button>
     <br />
     <form id="TestEmail" name="eTest" onsubmit="return validateFINAL('eTest', 'EMAIL')" required>
-      E-MAIL Test: <input id= "EmailTest" type="text"  name="EMAIL">
+      E-MAIL Test: <input id= "EmailTest" type="text"  name="EMAIL" oninput="startTiming()">
       <input id= "emailbutton" type="submit" value="Submit">
     </form>
     <form id="TestBank" name="bTest" onsubmit="return validateFINAL('bTest', 'BANK')" required>
-      Shopping Test: <input id= "BankTest" type="text"  name="BANK">
+      Shopping Test: <input id= "BankTest" type="text"  name="BANK" oninput="startTiming()">
       <input id= "bankbutton" type="submit" value="Submit" >
     </form>
     <form id="TestShop" name="sTest" onsubmit="return validateFINAL('sTest', 'SHOPPING')" required >
-      Bank Test: <input id= "shopTest" type="text"  name="SHOPPING">
+      Bank Test: <input id= "shopTest" type="text"  name="SHOPPING" oninput="startTiming()">
       <input id= "shopbutton" type="submit" value="Submit" >
     </form>
 
     <div class="kb-container">
+        <div id="QUOTE"></div>
         <div id="PIN"></div>
         <div id="keyboard"></div>
         <div id="authenticate-container">

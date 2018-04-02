@@ -24,6 +24,17 @@ let userPasswords = {
 
 let currentPassword = [];
 
+let logData = {
+    ID : "",
+    SCHEME : "quotes",
+    TIME : 0,
+    RESULT : "fail"
+}
+
+var timing = false;
+var typingTime  = 0;
+
+
 //function runs once the page DOM is ready for JavaScript code to execute
 $(document).ready(function(){
     document.user = generateUsername();
@@ -55,41 +66,73 @@ $(document).ready(function(){
     });
 });
 
+function doneTyping () {
+     timing = false;
+     console.log("DONE TYPING")
+     var t2 = performance.now()
+     console.log(t2)
+     console.log("took " + (t2 - typingTime) + " ms")
+     return t2 - typingTime;
+ }
+
+ function startTiming(){
+     if (!timing){
+         typingTime = performance.now();
+         console.log("TYPING  " + typingTime)
+     }
+     timing = true;
+ }
+
+ function sendToServer(){
+    console.log(logData)
+    var reqObj = logData
+    $.post("data", reqObj, function(data, status){
+            console.log("data: " + data);
+            console.log("typeof: " + typeof data);
+    });
+
+}
+
 function validateForm(form, pass) {
       var x = document.forms[form][pass].value;
       if(pass == "EMAIL"){
         countEmail++;
         if (x == userPasswords[pass]) {
-          alert("CORRECT! YOU ENTEERD THIS: " + x);
+          alert("CORRECT! YOU ENTERED THIS: " + x);
           etry=true;
         }
-        else{alert("INCORRECT! YOU ENTEERD THIS: " + x + ", password is: "+ userPasswords[pass]);}
+        else{alert("INCORRECT! YOU ENTERED THIS: " + x + ", password is: "+ userPasswords[pass]);}
       }
       else if(pass == "BANK"){
         countBank++;
         if (x == userPasswords[pass]) {
-          alert("CORRECT! YOU ENTEERD THIS: " + x);
+          alert("CORRECT! YOU ENTERED THIS: " + x);
           btry=true;
         }
-        else{alert("INCORRECT! YOU ENTEERD THIS: " + x + ", password is: "+ userPasswords[pass]);}
+        else{alert("INCORRECT! YOU ENTERED THIS: " + x + ", password is: "+ userPasswords[pass]);}
       }
       else if(pass == "SHOPPING"){
         countShop++;
         if (x == userPasswords[pass]) {
-          alert("CORRECT! YOU ENTEERD THIS: " + x);
+          alert("CORRECT! YOU ENTERED THIS: " + x);
           stry=true;
         }
-        else{alert("INCORRECT! YOU ENTEERD THIS: " + x + ", password is: "+ userPasswords[pass]);}
+        else{alert("INCORRECT! YOU ENTERED THIS: " + x + ", password is: "+ userPasswords[pass]);}
       }
       if(countEmail>0&& countShop>0&&countBank>0&&popUp==true&&stry==true&&btry==true&&etry==true){
         popUp=false;
         alert("You've finished your trial you can move on to login test")
         document.getElementById("finaltest").style.visibility="visible";
       }
-      clearText();
-      return false;
+    clearText();
+    return false;
 }
+
 function validateFINAL(form, pass){
+  time = doneTyping()
+  logData["TIME"] = time
+  logData["RESULT"] = "failure"
+  var correct = false;
   var x = document.forms[form][pass].value;
   if(pass == "EMAIL"){
     if(countEmailFinal>=2){
@@ -100,6 +143,8 @@ function validateFINAL(form, pass){
       countEmailFinal++;
       if (x == userPasswords[pass]) {
         alert("CORRECT!");
+        logData["RESULT"] = "success"
+        correct = true;
         disableProperty("emailbutton", true);
       }
       else{alert("wrong");}
@@ -114,12 +159,15 @@ function validateFINAL(form, pass){
       countShopFinal++;
       if (x == userPasswords[pass]) {
         alert("CORRECT!");
+        logData["RESULT"] = "success"
+        correct = true;
         disableProperty("shopbutton", true);
       }
       else{alert("wrong");}
     }
   }
   if(pass == "BANK"){
+    correct = true;
     if(countBankFinal>=2){
       alert("FAILED")
       disableProperty("bankbutton", true);
@@ -128,12 +176,15 @@ function validateFINAL(form, pass){
       countBankFinal++;
       if (x == userPasswords[pass]) {
         alert("CORRECT!");
+        logData["RESULT"] = "success"
+        correct = true;
         disableProperty("bankbutton", true);
       }
       else{alert("wrong");}
     }
   }
   clearText();
+  sendToServer();
   return false;
 }
 
@@ -184,7 +235,9 @@ function generateUsername() {
     let choices= "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     for (let i = 0; i < 6; i++){
         user += choices.charAt(Math.floor(Math.random() * choices.length));
-    }return user;
+    }
+    logData["ID"] = user;
+    return user;
 }
 
 function createPw(pwType){
@@ -208,8 +261,9 @@ function createPw(pwType){
             var quote = data.quote
             userPasswords[pwType] = password;
              $("#PIN").append("Quote: " + data.quote + '\n\n');
+             $("#QUOTE").append('\n' + "\nAuthor: " + data.author + '\n\n');
              $("#PIN").append("Password: " +  data.pw + '\n\n');
-             $("#PIN").append("Please authenticate your new " +  pwType + " password below: \n");
+             $("#PIN").append("(Hint: Your password is made up of the first letter of each word in the quote!)\nPlease authenticate your new " +  pwType + " password in TRIAL \n");
               document.getElementById("a-button").style.visibility="visible";
             });
 }
@@ -241,6 +295,7 @@ function registerPw(){
         }
     });
     $("#PIN").text("");
+    $("#QUOTE").text("");
 }
 
 

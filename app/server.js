@@ -10,7 +10,7 @@ app.use(express.static(__dirname)) //static server
 
 //
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true })); 
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
     res.sendStatus(200);
@@ -25,15 +25,15 @@ app.get('/quotes.html', (req, res) => {
 })
 
 // output: passwordObj with generated quote password, quote, author, quote link
-app.get('/quotes', (req, res) => { 
+app.get('/quotes', (req, res) => {
    	quoteModule.getQuote(res);
 });
 
-app.get('/colours', (req,res) => { 
+app.get('/colours', (req,res) => {
     res.sendStatus(200);
 });
 
-app.get('/credits', (req,res) => { 
+app.get('/credits', (req,res) => {
     res.sendStatus(200);
 });
 

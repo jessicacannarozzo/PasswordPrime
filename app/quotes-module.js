@@ -3,8 +3,7 @@ const quotesURL = "https://andruxnet-random-famous-quotes.p.mashape.com/?cat=fam
 const APIKey = "e3XdZah2iYmshpzDEF2ip2OLqWOSp1xmzfbjsn5otNlXeuUkPG";
 const quoteLen = 50;
 const pwLen = 14;
-const symbols = "!@#$%^&";
-const numbers = "1234567890";
+const symbols = "!@#$1234567890";
 
 //methods
 //input: quote (string)
@@ -13,13 +12,12 @@ function createQuotePW(quote) {
     quotePw = "";
     if (quote) {
         let quotePw = quote.match(/\b(\w)/g).join(''); //get first letter of each word in quote
-
+        x = 0;
         function addSpecialCharacters(pw) {
-            while (pw.length < pwLen) {
+            while (x<3) {
                 let i = Math.floor(Math.random() * symbols.length);
-                let j = Math.floor(Math.random() * numbers.length);
                 pw += symbols[i];
-                pw = numbers[j] + pw;
+                x++;
             }
             return pw;
         }

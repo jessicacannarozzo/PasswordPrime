@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Quote Password System</title>
+    <link rel = "stylesheet" type = "text/css" href = "quote.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="quote-script.js"></script>
+</head>
+<body>
+    <div id="header">
+        <h1>Quote PASS</h1>
+        <h3>Password System</h3>
+    </div>
+
+    <div id="userdiv">
+        <div id="username"></div>
+    </div>
+
+    <div class="pw-container">
+        <div class="pw-box" id="email">
+            E-MAIL<br /><br />
+            <img src="icons/icon-email.svg" alt="Email Icon" width="128" height="128">
+            <br />
+            <button class="pw-button" id="e-button">Create New Password</button>
+            <form name="eForm" onsubmit= "return validateForm('eForm', 'EMAIL')" >
+              Practice:  <input id = "emailform" type="text" name="EMAIL">
+              <input id= "es" type="submit" value="Submit" disabled>
+            </form>
+        </div>
+        <div class="pw-box" id="bank">
+            BANK <br /><br />
+            <img src="icons/icon-bank.svg" alt="Bank Icon" width="128" height="128">
+            <br />
+            <button class="pw-button" id="b-button">Create New Password</button>
+            <form name="bForm" onsubmit = "return validateForm('bForm', 'BANK')">
+              Practice: <input id= "bankform" type="text" name="BANK" >
+              <input id= "bs" type="submit" value="Submit" disabled>
+            </form>
+        </div>
+        <div class="pw-box" id="shopping">
+            SHOPPING<br /><br />
+            <img src="icons/icon-shopping.svg" alt="Shopping Icon" width="128" height="128">
+            <br />
+            <button class="pw-button" id="s-button">Create New Password</button>
+            <form name="sForm" onsubmit="return validateForm('sForm', 'SHOPPING')">
+              Practice: <input id="shopform" type="text" name="SHOPPING">
+              <input id= "ss" type="submit" value="Submit" disabled>
+            </form>
+        </div>
+
+    </div>
+    <div class="pw-test">
+        <button class="Final-Test" id="finaltest" onclick= "randomOrder()">Final Test</button>
+        <div id= "Trial"> </div>
+        <br />
+        <form id="TestEmail" name="eTest" onsubmit="return validateFINAL('eTest', 'EMAIL')" required>
+          E-MAIL Test: <input id= "EmailTest" type="text"  name="EMAIL" oninput="startTiming()">
+          <input id= "emailbutton" type="submit" value="Submit">
+        </form>
+        <form id="TestBank" name="bTest" onsubmit="return validateFINAL('bTest', 'BANK')" required>
+          Bank Test: <input id= "BankTest" type="text"  name="BANK" oninput="startTiming()">
+          <input id= "bankbutton" type="submit" value="Submit" >
+        </form>
+        <form id="TestShop" name="sTest" onsubmit="return validateFINAL('sTest', 'SHOPPING')" required >
+          Shopping Test: <input id= "shopTest" type="text"  name="SHOPPING" oninput="startTiming()">
+          <input id= "shopbutton" type="submit" value="Submit" >
+        </form>
+    </div>
+
+    <div class="kb-container">
+        <div id="PIN"></div>
+        <div id="keyboard"></div>
+        <div id="authenticate-container">
+            <button id="a-button">Next</button>
+        </div>
+    </div>
+    <form style="display: inline" action="http://localhost:3000" method="get">
+      <button>HOME</button>
+    </form>
+</body>
+</html>

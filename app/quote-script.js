@@ -260,10 +260,11 @@ function createPw(pwType){
             password = data.pw
             var quote = data.quote
             userPasswords[pwType] = password;
-             $("#PIN").append("Quote: " + data.quote + '\n\n');
-             $("#QUOTE").append('\n' + "\nAuthor: " + data.author + '\n\n');
-             $("#PIN").append("Password: " +  data.pw + '\n\n');
-             $("#PIN").append("(Hint: Your password is made up of the first letter of each word in the quote!)\nPlease authenticate your new " +  pwType + " password in TRIAL \n");
+             $("#PIN").append("Quote: " + data.quote + '\n');
+             $("#PIN").append("Author: " + data.author + '\n\n');
+             $("#PIN").append("Password: " + data.pw.bold() + '\n\n');
+             $("#PIN").append("(Hint: Your password is made up of the first letter of each word in the quote!)\n");
+             $("#PIN").append("Please authenticate your new " +  pwType + " password in TRIAL \n");
               document.getElementById("a-button").style.visibility="visible";
             });
 }

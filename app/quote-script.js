@@ -26,13 +26,14 @@ let currentPassword = [];
 
 let logData = {
     ID : "",
-    SCHEME : "quotes",
     TIME : 0,
+    START: 0,
+    END: 0,
     RESULT : "fail"
 }
 
 var timing = false;
-var typingTime  = 0;
+var t1 = 0;
 
 
 //function runs once the page DOM is ready for JavaScript code to execute
@@ -68,17 +69,17 @@ $(document).ready(function(){
 
 function doneTyping () {
      timing = false;
-     console.log("DONE TYPING")
-     var t2 = performance.now()
-     console.log(t2)
-     console.log("took " + (t2 - typingTime) + " ms")
-     return t2 - typingTime;
+     var t2 = Date.now()
+     logData["END"] = t2
+     var diff = t2 - t1
+     t1 = 0
+     return diff;
  }
 
  function startTiming(){
+    logData["START"] = Date.now()
      if (!timing){
-         typingTime = performance.now();
-         console.log("TYPING  " + typingTime)
+         t1 = Date.now();
      }
      timing = true;
  }
@@ -129,7 +130,9 @@ function validateForm(form, pass) {
 }
 
 function validateFINAL(form, pass){
+
   time = doneTyping()
+  console.log("diff: " + time)
   logData["TIME"] = time
   logData["RESULT"] = "failure"
   var correct = false;

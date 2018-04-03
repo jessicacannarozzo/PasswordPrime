@@ -51,20 +51,23 @@
         </div>
 
     </div>
-    <button class="Final-Test" id="finaltest" onclick= "randomOrder()" >Final Test</button>
-    <br />
-    <form id="TestEmail" name="eTest" onsubmit="return validateFINAL('eTest', 'EMAIL')" required>
-      E-MAIL Test: <input id= "EmailTest" type="text"  name="EMAIL" oninput="startTiming()">
-      <input id= "emailbutton" type="submit" value="Submit">
-    </form>
-    <form id="TestBank" name="bTest" onsubmit="return validateFINAL('bTest', 'BANK')" required>
-      Bank Test: <input id= "BankTest" type="text"  name="BANK" oninput="startTiming()">
-      <input id= "bankbutton" type="submit" value="Submit" >
-    </form>
-    <form id="TestShop" name="sTest" onsubmit="return validateFINAL('sTest', 'SHOPPING')" required >
-      Shopping Test: <input id= "shopTest" type="text"  name="SHOPPING" oninput="startTiming()">
-      <input id= "shopbutton" type="submit" value="Submit" >
-    </form>
+    <div class="pw-test">
+        <button class="Final-Test" id="finaltest" onclick= "randomOrder()">Final Test</button>
+        <div id= "Trial"> </div>
+        <br />
+        <form id="TestEmail" name="eTest" onsubmit="return validateFINAL('eTest', 'EMAIL')" required>
+          E-MAIL Test: <input id= "EmailTest" type="text"  name="EMAIL" oninput="startTiming()">
+          <input id= "emailbutton" type="submit" value="Submit">
+        </form>
+        <form id="TestBank" name="bTest" onsubmit="return validateFINAL('bTest', 'BANK')" required>
+          Bank Test: <input id= "BankTest" type="text"  name="BANK" oninput="startTiming()">
+          <input id= "bankbutton" type="submit" value="Submit" >
+        </form>
+        <form id="TestShop" name="sTest" onsubmit="return validateFINAL('sTest', 'SHOPPING')" required >
+          Shopping Test: <input id= "shopTest" type="text"  name="SHOPPING" oninput="startTiming()">
+          <input id= "shopbutton" type="submit" value="Submit" >
+        </form>
+    </div>
 
     <div class="kb-container">
         <div id="PIN"></div>

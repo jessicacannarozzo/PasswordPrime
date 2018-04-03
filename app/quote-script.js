@@ -135,9 +135,11 @@ function validateFINAL(form, pass){
   var correct = false;
   var x = document.forms[form][pass].value;
   if(pass == "EMAIL"){
+    $("#Trial").text("Try: " + (countEmailFinal+1) + "/3");
     if(countEmailFinal>=2){
       alert("FAILED")
       disableProperty("emailbutton", true);
+      randomOrder()
     }
     else if(countEmailFinal<3){
       countEmailFinal++;
@@ -151,9 +153,11 @@ function validateFINAL(form, pass){
     }
   }
   if(pass == "SHOPPING"){
+    $("#Trial").text("Try: " + (countShopFinal+1) + "/3");
     if(countShopFinal>=2){
       alert("FAILED")
       disableProperty("shopbutton", true);
+      randomOrder()
     }
     else if(countShopFinal<3){
       countShopFinal++;
@@ -167,10 +171,12 @@ function validateFINAL(form, pass){
     }
   }
   if(pass == "BANK"){
+    $("#Trial").text("Try: " + (countBankFinal+1) + "/3");
     correct = true;
     if(countBankFinal>=2){
       alert("FAILED")
       disableProperty("bankbutton", true);
+      randomOrder()
     }
     else if(countBankFinal<3){
       countBankFinal++;
@@ -189,6 +195,7 @@ function validateFINAL(form, pass){
 }
 
 function randomOrder(){
+  $("#Trial").text("Try: 0/3");
   if (emailbool==false&&shopbool==false&&bankbool==false){
     disableProperty("finaltest",true);
     return;
@@ -296,7 +303,6 @@ function registerPw(){
         }
     });
     $("#PIN").text("");
-    $("#QUOTE").text("");
 }
 
 

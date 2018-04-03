@@ -58,7 +58,20 @@ body{
     text-align: center;
 }
 
+.pw-test{
+    margin: auto;
+    width: 95%;
+    padding: 10px;
+    text-align: left;
+
+
+}
+
 #PIN{
+    white-space:pre-wrap;
+}
+
+#Trial{
     white-space:pre-wrap;
 }
 

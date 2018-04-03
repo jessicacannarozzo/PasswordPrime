@@ -195,6 +195,7 @@ function validateFINAL(form, pass){
 }
 
 function randomOrder(){
+  $("#PIN").text("");
   $("#Trial").text("Try: 0/3");
   if (emailbool==false&&shopbool==false&&bankbool==false){
     disableProperty("finaltest",true);
@@ -248,6 +249,7 @@ function generateUsername() {
 }
 
 function createPw(pwType){
+  $("#PIN").text("");
     // lock buttons that creates passwords
     disableProperty("e-button", true);
     disableProperty("b-button", true);
@@ -302,7 +304,7 @@ function registerPw(){
             }
         }
     });
-    $("#PIN").text("");
+
 }
 
 

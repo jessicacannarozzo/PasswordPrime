@@ -15,11 +15,10 @@ function createQuotePW(quote) {
         let quotePw = quote.match(/\b(\w)/g).join(''); //get first letter of each word in quote
 
         function addSpecialCharacters(pw) {
-            while (pw.length < pwLen) {
+            while (x<3) {
                 let i = Math.floor(Math.random() * symbols.length);
-                let j = Math.floor(Math.random() * numbers.length);
                 pw += symbols[i];
-                pw = numbers[j] + pw;
+                x++;
             }
             return pw;
         }

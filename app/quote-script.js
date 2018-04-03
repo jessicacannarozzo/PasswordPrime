@@ -151,6 +151,7 @@ function validateFINAL(form, pass){
         logData["RESULT"] = "success"
         correct = true;
         disableProperty("emailbutton", true);
+        randomOrder();
       }
       else{alert("wrong");}
     }
@@ -169,6 +170,7 @@ function validateFINAL(form, pass){
         logData["RESULT"] = "success"
         correct = true;
         disableProperty("shopbutton", true);
+        randomOrder();
       }
       else{alert("wrong");}
     }
@@ -188,6 +190,7 @@ function validateFINAL(form, pass){
         logData["RESULT"] = "success"
         correct = true;
         disableProperty("bankbutton", true);
+        randomOrder();
       }
       else{alert("wrong");}
     }

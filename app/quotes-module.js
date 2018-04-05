@@ -1,3 +1,9 @@
+/*
+Module for generating quotes password.
+Calls the andruxnet-random-famous-quotes API to get random quotes.
+Generates a password by taking the first letter of each word in the quote, and appending 3 symbols chosen at random
+*/
+
 const unirest = require('unirest');
 const quotesURL = "https://andruxnet-random-famous-quotes.p.mashape.com/?cat=famous&count=1";
 const APIKey = "e3XdZah2iYmshpzDEF2ip2OLqWOSp1xmzfbjsn5otNlXeuUkPG";

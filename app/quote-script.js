@@ -67,6 +67,8 @@ $(document).ready(function(){
     });
 });
 
+//input: none
+//output: return time diff (ms) between time started and finished typing
 function doneTyping () {
      timing = false;
      var t2 = Date.now()
@@ -76,6 +78,8 @@ function doneTyping () {
      return diff;
  }
 
+//input: none
+//output: sets logData["START"] to current time
  function startTiming(){
     logData["START"] = Date.now()
      if (!timing){
@@ -84,6 +88,9 @@ function doneTyping () {
      timing = true;
  }
 
+
+//input: none
+//output: post request to server containing JSOn object of trial data
  function sendToServer(){
     console.log(logData)
     var reqObj = logData
@@ -93,7 +100,9 @@ function doneTyping () {
     });
 
 }
-
+//Validates the correctnesss of user's input against the actual password. This is the practice trial
+//input: the form ID and the password type
+//output: alert in browser indicating validity of password (correct/incorrect)
 function validateForm(form, pass) {
       var x = document.forms[form][pass].value;
       if(pass == "EMAIL"){
@@ -128,7 +137,9 @@ function validateForm(form, pass) {
     clearText();
     return false;
 }
-
+//Validates the correctnesss of user's input against the actual password. This is the testing trial, so data is logged
+//input: the form ID and the password type
+//output: alert in browser indicating validity of password (correct/incorrect)
 function validateFINAL(form, pass){
 
   time = doneTyping()
@@ -200,6 +211,10 @@ function validateFINAL(form, pass){
   return false;
 }
 
+
+//For user testing, generate a password to test in random order
+//input: none
+//output: generates a textbox for password input
 function randomOrder(){
   $("#PIN").text("");
   $("#Trial").text("Try: 0/3");
@@ -234,6 +249,7 @@ function randomOrder(){
   }
 }
 
+//clears the text in all textboxes
 function clearText(){
   document.getElementById("emailform").value="";
   document.getElementById("bankform").value="";
@@ -243,6 +259,7 @@ function clearText(){
   document.getElementById("shopTest").value="";
   return false;
 }
+
 // generates a random username of 6 characters
 function generateUsername() {
     let user = "";
@@ -254,6 +271,9 @@ function generateUsername() {
     return user;
 }
 
+//sends a get request to the serve for a new random password, saves the pas
+//input: pwType (email, bank, shopping)
+//outut: stores the password in userPasswords
 function createPw(pwType){
   $("#PIN").text("");
     // lock buttons that creates passwords
@@ -284,7 +304,9 @@ function createPw(pwType){
             });
 }
 
-
+//allows the user to start practicing their passowrd
+//input: none
+//output: enables the submit button for the chosen pw type, disables the other pw submit buttons
 function registerPw(){
     //*** need to check for correctness
     disableProperty("emailform",false);
@@ -313,7 +335,9 @@ function registerPw(){
 
 }
 
-
+//disables a button
+//input: buttonId, booelean disable
+//disables / enables the button
 function disableProperty(buttonId, disable){
     document.getElementById(buttonId).disabled = disable;
 }
